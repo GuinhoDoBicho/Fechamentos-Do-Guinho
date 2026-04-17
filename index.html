@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fechamentos Do Guinho</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #27ae60;
+            --whatsapp: #25D366;
+            --danger: #e74c3c;
+            --light: #f8f9fa;
+            --win-blue: #007bff;
+            --gold: #f1c40f;
+            --mercadopago: #009ee3;
+        }
+
+        body { font-family: 'Segoe UI', sans-serif; background-color: #e9ecef; margin: 0; padding: 10px; display: flex; justify-content: center; }
+        .main-card { background: white; width: 100%; max-width: 600px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: var(--primary); color: white; padding: 15px; text-align: center; border-bottom: 4px solid var(--gold); }
+        .header h1 { margin: 0; font-size: 1.5rem; }
+        .content { padding: 15px; }
+
+        /* Botão de Apoio Mercado Pago */
+        .donate-section { margin-bottom: 15px; text-align: center; }
+        .btn-donate { 
+            background: var(--mercadopago); color: white; text-decoration: none; 
+            padding: 10px 20px; border-radius: 50px; font-weight: bold; font-size: 0.9rem;
+            display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+        .btn-donate:hover { transform: scale(1.03); }
+
+        .suggestions-panel { 
+            background: linear-gradient(135deg, #2c3e50, #4ca1af); 
+            color: white; padding: 15px; border-radius: 10px; margin-bottom: 20px; 
+            text-align: center; border: 2px solid var(--gold);
+        }
+        .suggestions-panel h3 { margin: 0 0 10px 0; font-size: 0.9rem; color: var(--gold); text-transform: uppercase; }
+        .suggestion-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; font-weight: bold; font-family: monospace; }
+        .sug-item { background: rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 4px; font-size: 1.1rem; }
+
+        .number-grid { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 15px; }
+        .num-btn { 
+            flex: 1 1 calc(20% - 10px); min-width: 50px; max-width: 60px; height: 50px; 
+            border: 2px solid #ddd; border-radius: 10px; background: white; font-size: 1.3rem; font-weight: bold; cursor: pointer; 
+        }
+        .num-btn.active { background: var(--secondary); color: white; border-color: var(--secondary); transform: scale(1.05); }
+
+        .panel { background: var(--light); padding: 15px; border-radius: 10px; display: flex; flex-direction: column; gap: 12px; }
+        .control-group { display: flex; flex-direction: column; gap: 5px; }
+        label { font-weight: bold; font-size: 0.85rem; color: var(--primary); }
+        select, input, button.main-btn { padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 1rem; width: 100%; box-sizing: border-box; }
+        button.main-btn { background: var(--success); color: white; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button.main-btn:disabled { background: #bdc3c7; cursor: not-allowed; }
+        
+        .action-buttons { display: none; flex-direction: column; gap: 8px; margin-top: 10px; }
+        .btn-whatsapp { background: var(--whatsapp); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; }
+
+        #results-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; margin-top: 20px; }
+        .ticket { background: #fff; border: 1px solid #dee2e6; padding: 10px; text-align: center; border-radius: 8px; font-family: monospace; font-weight: bold; font-size: 1.1rem; transition: 0.2s; }
+        .ticket.ganhador { background: var(--win-blue) !important; color: white !important; border-color: #004085; transform: scale(1.05); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .status-msg { text-align: center; margin-bottom: 10px; font-weight: bold; color: var(--primary); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+<div class="main-card">
+    <div class="header"><h1>Fechamentos Do Guinho</h1></div>
+
+    <div class="content">
+        <div class="donate-section">
+            <a href="https://mpago.la/2Hvokm3" target="_blank" class="btn-donate">
+                🤝 Manter o site ativo
+            </a>
+        </div>
+
+        <div class="suggestions-panel">
+            <h3>✨ Palpites de Hoje (Renova 00h)</h3>
+            <div id="palpites-milhar" class="suggestion-group" style="margin-bottom: 10px;"></div>
+            <div id="palpites-centena" class="suggestion-group"></div>
+        </div>
+
+        <div class="number-grid" id="grid"></div>
+        <div class="status-msg" id="status-text">Selecione os números</div>
+
+        <div class="panel">
+            <div class="control-group">
+                <label>Modalidade:</label>
+                <select id="mode" onchange="clearAll();">
+                    <option value="3-6">Centena Invertida (6 dezenas -> 20 jogos)</option>
+                    <option value="3-7">Centena Invertida (7 dezenas -> 35 jogos)</option>
+                    <option value="4-7">Milhar Invertida (7 dezenas -> 35 jogos)</option>
+                    <option value="4-8">Milhar Invertida (8 dezenas -> 70 jogos)</option>
+                </select>
+                <button id="generateBtn" class="main-btn" onclick="generate()" disabled>GERAR JOGOS</button>
+                
+                <div id="actionPanel" class="action-buttons">
+                    <button class="btn-whatsapp" onclick="shareWhatsapp()">COMPARTILHAR NO WHATSAPP</button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>Conferir Resultado (ex: 1,2,3):</label>
+                <input type="text" id="drawResult" placeholder="Digite o resultado..." oninput="checkGames()">
+                <button onclick="clearAll()" style="color:var(--danger); background:none; border:none; padding:5px; cursor:pointer; text-decoration:underline; font-size: 0.8rem;">Limpar Seleção</button>
+            </div>
+        </div>
+
+        <div id="results-container"></div>
+    </div>
+</div>
+
+<script>
+    let selectedNumbers = [];
+    let currentGames = [];
+
+    function initPalpites() {
+        const data = new Date();
+        const seed = data.getDate() + data.getMonth() + data.getFullYear();
+        let random = seed;
+        function getNext() {
+            random = (random * 9301 + 49297) % 233280;
+            return random / 233280;
+        }
+        const mDiv = document.getElementById('palpites-milhar');
+        const cDiv = document.getElementById('palpites-centena');
+        let mHtml = "M: ";
+        for(let i=0; i<5; i++) { mHtml += `<span class="sug-item">${Math.floor(getNext() * 10000).toString().padStart(4, '0')}</span>`; }
+        mDiv.innerHTML = mHtml;
+        let cHtml = "C: ";
+        for(let i=0; i<5; i++) { cHtml += `<span class="sug-item">${Math.floor(getNext() * 1000).toString().padStart(3, '0')}</span>`; }
+        cDiv.innerHTML = cHtml;
+    }
+
+    const grid = document.getElementById('grid');
+    for (let i = 0; i <= 9; i++) {
+        const btn = document.createElement('button');
+        btn.innerText = i; btn.className = 'num-btn';
+        btn.onclick = () => {
+            const idx = selectedNumbers.indexOf(i);
+            const [k, nReq] = document.getElementById('mode').value.split('-').map(Number);
+            if (idx > -1) { selectedNumbers.splice(idx, 1); btn.classList.remove('active'); }
+            else if (selectedNumbers.length < nReq) { selectedNumbers.push(i); btn.classList.add('active'); }
+            updateStatus();
+        };
+        grid.appendChild(btn);
+    }
+
+    function updateStatus() {
+        const [k, nReq] = document.getElementById('mode').value.split('-').map(Number);
+        document.getElementById('status-text').innerText = `Selecionados: ${selectedNumbers.length} / ${nReq}`;
+        document.getElementById('generateBtn').disabled = selectedNumbers.length !== nReq;
+    }
+
+    function generate() {
+        const [k, n] = document.getElementById('mode').value.split('-').map(Number);
+        const sorted = [...selectedNumbers].sort((a, b) => a - b);
+        currentGames = [];
+        function combine(start, combo) {
+            if (combo.length === k) { currentGames.push([...combo]); return; }
+            for (let i = start; i < sorted.length; i++) {
+                combo.push(sorted[i]);
+                combine(i + 1, combo);
+                combo.pop();
+            }
+        }
+        combine(0, []);
+        render();
+        document.getElementById('actionPanel').style.display = 'flex';
+    }
+
+    function render() {
+        const container = document.getElementById('results-container');
+        container.innerHTML = `<div style="grid-column:1/-1; text-align:center; font-size:0.8rem; color:#666;">Gerados: ${currentGames.length} jogos</div>` +
+        currentGames.map((g, i) => `<div class="ticket" id="game-${i}"><small style="color:#999;font-size:10px">#${i+1}</small><br>${g.join('-')}</div>`).join('');
+    }
+
+    function checkGames() {
+        const val = document.getElementById('drawResult').value;
+        const draw = val.split(/[,.-]/).map(n => parseInt(n.trim())).filter(n => !isNaN(n));
+        const [k, n] = document.getElementById('mode').value.split('-').map(Number);
+        currentGames.forEach((game, i) => {
+            const div = document.getElementById(`game-${i}`);
+            if (!div) return;
+            const hits = game.filter(num => draw.includes(num)).length;
+            if (hits >= k && draw.length >= k) div.classList.add('ganhador');
+            else div.classList.remove('ganhador');
+        });
+    }
+
+    function shareWhatsapp() {
+        const mode = document.getElementById('mode').options[document.getElementById('mode').selectedIndex].text;
+        let t = `*FECHAMENTOS DO GUINHO*\n*${mode}*\n*Números:* ${selectedNumbers.sort().join(', ')}\n\n`;
+        currentGames.forEach((g, i) => t += `Jogo ${i+1}: ${g.join('-')}\n`);
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(t)}`, '_blank');
+    }
+
+    function clearAll() {
+        selectedNumbers = []; currentGames = [];
+        document.querySelectorAll('.num-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('results-container').innerHTML = '';
+        document.getElementById('drawResult').value = '';
+        document.getElementById('actionPanel').style.display = 'none';
+        updateStatus();
+    }
+
+    initPalpites();
+</script>
+</body>
+</html>
