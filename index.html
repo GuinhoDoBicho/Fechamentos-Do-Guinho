@@ -34,71 +34,31 @@
             display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        /* PAINEL DE PALPITES E DATA/HORA */
         .suggestions-panel { 
             background: linear-gradient(135deg, #2c3e50, #4ca1af); 
             color: white; padding: 15px 10px; border-radius: 10px; margin-bottom: 20px; 
             text-align: center; border: 2px solid var(--gold);
         }
         
-        .datetime-container {
-            background: rgba(0,0,0,0.2);
-            display: inline-block;
-            padding: 8px 20px;
-            border-radius: 15px;
-            margin-bottom: 10px;
-        }
-
-        .date-display { 
-            display: block;
-            font-size: 0.85rem;
-            color: #fff;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .clock-display { 
-            display: block;
-            font-family: monospace; 
-            font-size: 1.3rem; 
-            color: var(--gold); 
-            font-weight: bold; 
-        }
+        .datetime-container { background: rgba(0,0,0,0.2); display: inline-block; padding: 8px 20px; border-radius: 15px; margin-bottom: 10px; }
+        .date-display { display: block; font-size: 0.85rem; color: #fff; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .clock-display { display: block; font-family: monospace; font-size: 1.3rem; color: var(--gold); font-weight: bold; }
         
-        .suggestion-container { 
-            display: flex; 
-            justify-content: space-around; 
-            gap: 8px; 
-            margin-top: 10px;
-            overflow-x: auto;
-            padding-bottom: 5px;
-        }
-
-        .suggestion-container::-webkit-scrollbar { height: 4px; }
-        .suggestion-container::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
-
-        .group-card { 
-            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,215,0,0.3);
-            border-radius: 8px; padding: 8px; 
-            flex: 1;
-            min-width: 100px;
-            text-align: center;
-        }
+        .suggestion-container { display: flex; justify-content: space-around; gap: 8px; margin-top: 10px; overflow-x: auto; padding-bottom: 5px; }
+        .group-card { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,215,0,0.3); border-radius: 8px; padding: 8px; flex: 1; min-width: 100px; text-align: center; }
         .group-icon { font-size: 1.8rem; display: block; margin-bottom: 3px; }
         .group-name { font-weight: bold; color: var(--gold); font-size: 0.75rem; display: block; margin-bottom: 5px; border-bottom: 1px solid rgba(255,255,255,0.2); white-space: nowrap; }
         .milhar-list { font-family: monospace; font-size: 0.85rem; line-height: 1.3; color: #fff; font-weight: bold; }
         .milhar-item { display: block; letter-spacing: 0.5px; }
 
-        /* Puxadas e Grid */
         .puxada-panel { background: #fff3cd; border: 1px solid #ffeeba; padding: 10px; border-radius: 10px; margin-bottom: 15px; }
         .puxada-panel select { background: white; margin-top: 5px; width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; }
         #puxada-resultado { font-weight: bold; color: #856404; margin-top: 8px; font-size: 0.9rem; text-align: center; }
 
-        .number-grid { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 15px; }
+        .number-grid { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; margin-bottom: 15px; }
         .num-btn { 
-            flex: 1 1 calc(20% - 10px); min-width: 50px; max-width: 60px; height: 50px; 
-            border: 2px solid #ddd; border-radius: 10px; background: white; font-size: 1.3rem; font-weight: bold; cursor: pointer; 
+            width: 45px; height: 45px; border: 2px solid #ddd; border-radius: 8px; 
+            background: white; font-size: 1.1rem; font-weight: bold; cursor: pointer; 
         }
         .num-btn.active { background: var(--secondary); color: white; border-color: var(--secondary); }
 
@@ -178,13 +138,15 @@
         <div id="status-text" style="text-align:center; margin-bottom:10px; font-weight:bold; font-size:0.9rem;">Selecione os números</div>
 
         <div class="panel">
-            <select id="mode" onchange="clearAll();">
+            <select id="mode" onchange="clearAll(); renderGrid();">
                 <option value="2-7">Dezena Invertida (7 dezenas -> 21 jogos)</option>
                 <option value="2-8">Dezena Invertida (8 dezenas -> 28 jogos)</option>
                 <option value="3-6">Centena Invertida (6 dezenas -> 20 jogos)</option>
                 <option value="3-7">Centena Invertida (7 dezenas -> 35 jogos)</option>
                 <option value="4-7">Milhar Invertida (7 dezenas -> 35 jogos)</option>
                 <option value="4-8">Milhar Invertida (8 dezenas -> 70 jogos)</option>
+                <option value="TG-7">Terno de Grupo (7 grupos -> 35 jogos)</option>
+                <option value="TG-8">Terno de Grupo (8 grupos -> 56 jogos)</option>
             </select>
             <button id="generateBtn" class="main-btn" onclick="generate()" disabled>GERAR JOGOS</button>
             
@@ -194,7 +156,7 @@
             </div>
 
             <div style="border-top: 1px solid #ddd; padding-top: 10px; margin-top: 5px;">
-                <input type="text" id="drawResult" placeholder="Conferidor Azul (ex: 1,2,3)" oninput="checkGames()">
+                <input type="text" id="drawResult" placeholder="Conferidor (ex: 1, 17, 25)" oninput="checkGames()">
                 <button class="btn-clear" onclick="clearAll()">🗑️ LIMPAR TUDO</button>
             </div>
         </div>
@@ -223,113 +185,79 @@
         { n: "25", nome: "Vaca", icon: "🐄" }
     ];
 
-    const puxadas = {
-        "Avestruz (1)": "Vaca, Águia, Pavão", "Águia (2)": "Coelho, Peru, Galo", "Burro (3)": "Cavalo, Elefante, Veado",
-        "Borboleta (4)": "Cabra, Gato, Leão", "Cachorro (5)": "Galo, Camelo, Macaco", "Cabra (6)": "Touro, Carneiro, Urso",
-        "Carneiro (7)": "Cabra, Coelho, Jacaré", "Camelo (8)": "Cachorro, Elefante, Urso", "Cobra (9)": "Jacaré, Porco, Gato",
-        "Coelho (10)": "Águia, Carneiro, Burro", "Cavalo (11)": "Burro, Touro, Cabra", "Elefante (12)": "Burro, Camelo, Tigre",
-        "Galo (13)": "Cachorro, Pavão, Águia", "Gato (14)": "Cobra, Borboleta, Leão", "Jacaré (15)": "Cobra, Porco, Carneiro",
-        "Leão (16)": "Gato, Tigre, Elefante", "Macaco (17)": "Cachorro, Carneiro, Veado", "Porco (18)": "Cobra, Jacaré, Vaca",
-        "Pavão (19)": "Avestruz, Galo, Coelho", "Peru (20)": "Águia, Pavão, Veado", "Touro (21)": "Vaca, Cabra, Cavalo",
-        "Tigre (22)": "Leão, Gato, Touro", "Urso (23)": "Elefante, Camelo, Cabra", "Veado (24)": "Burro, Macaco, Peru",
-        "Vaca (25)": "Touro, Avestruz, Porco"
-    };
-    
-    function updateOnlineCounter() {
-        const hour = new Date().getHours();
-        let base = hour >= 12 && hour < 18 ? 300 : 100;
-        document.getElementById('user-count').innerText = base + Math.floor(Math.random() * 50);
-        setTimeout(updateOnlineCounter, 8000);
-    }
-
-    function verPuxada() {
-        const sel = document.getElementById('bichoAnterior').value;
-        document.getElementById('puxada-resultado').innerText = sel ? `Puxada: ${puxadas[sel]}` : "Puxada: --";
-    }
-
-    function updateClock() {
-        const now = new Date();
-        // Atualiza Data
-        const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-        document.getElementById('current-date').innerText = now.toLocaleDateString('pt-BR', options);
-        // Atualiza Hora
-        document.getElementById('clock').innerText = now.toLocaleTimeString('pt-BR');
+    function renderGrid() {
+        const grid = document.getElementById('grid');
+        grid.innerHTML = '';
+        const mode = document.getElementById('mode').value;
+        const isTerno = mode.startsWith('TG');
         
-        if(now.getHours() === 0 && now.getMinutes() === 0 && now.getSeconds() === 0) initPalpites();
-    }
+        // Se for Terno de Grupo: 1 a 25. Se for Milhar/Centena/Dezena: 0 a 9.
+        const start = isTerno ? 1 : 0;
+        const max = isTerno ? 25 : 9;
 
-    function initPalpites() {
-        const data = new Date();
-        const seed = data.getDate() + (data.getMonth() + 1) * 31 + data.getFullYear();
-        let random = seed;
-        function getNext() { random = (random * 9301 + 49297) % 233280; return random / 233280; }
-
-        const container = document.getElementById('palpites-container');
-        container.innerHTML = "";
-
-        let indices = Array.from({length: 25}, (_, i) => i);
-        let selecionados = [];
-        for(let i=0; i<3; i++) {
-            const idx = Math.floor(getNext() * indices.length);
-            selecionados.push(bichosInfo[indices.splice(idx, 1)[0]]);
+        for (let i = start; i <= max; i++) {
+            const btn = document.createElement('button');
+            // No Terno mostra o número real, na Milhar mostra normal
+            btn.innerText = isTerno ? i : i;
+            btn.className = 'num-btn';
+            btn.onclick = () => {
+                const idx = selectedNumbers.indexOf(i);
+                const nReq = parseInt(mode.split('-')[1]);
+                if (idx > -1) { 
+                    selectedNumbers.splice(idx, 1); 
+                    btn.classList.remove('active'); 
+                } else if (selectedNumbers.length < nReq) { 
+                    selectedNumbers.push(i); 
+                    btn.classList.add('active'); 
+                }
+                updateStatus();
+            };
+            grid.appendChild(btn);
         }
-
-        selecionados.forEach(bicho => {
-            const gNum = parseInt(bicho.n);
-            const dezenasBase = [
-                (gNum * 4).toString().padStart(2, '0').replace('100', '00'),
-                (gNum * 4 - 1).toString().padStart(2, '0'),
-                (gNum * 4 - 2).toString().padStart(2, '0'),
-                (gNum * 4 - 3).toString().padStart(2, '0')
-            ];
-
-            let milharesHTML = "";
-            dezenasBase.forEach(dez => {
-                const prefixo = Math.floor(getNext() * 100).toString().padStart(2, '0');
-                milharesHTML += `<span class="milhar-item">${prefixo}${dez}</span>`;
-            });
-
-            container.innerHTML += `
-                <div class="group-card">
-                    <span class="group-icon">${bicho.icon}</span>
-                    <span class="group-name">${bicho.n} - ${bicho.nome}</span>
-                    <div class="milhar-list">${milharesHTML}</div>
-                </div>
-            `;
-        });
-    }
-
-    const grid = document.getElementById('grid');
-    for (let i = 0; i <= 9; i++) {
-        const btn = document.createElement('button');
-        btn.innerText = i; btn.className = 'num-btn';
-        btn.onclick = () => {
-            const idx = selectedNumbers.indexOf(i);
-            const [k, nReq] = document.getElementById('mode').value.split('-').map(Number);
-            if (idx > -1) { selectedNumbers.splice(idx, 1); btn.classList.remove('active'); }
-            else if (selectedNumbers.length < nReq) { selectedNumbers.push(i); btn.classList.add('active'); }
-            updateStatus();
-        };
-        grid.appendChild(btn);
     }
 
     function updateStatus() {
-        const [k, nReq] = document.getElementById('mode').value.split('-').map(Number);
-        document.getElementById('status-text').innerText = `Selecionados: ${selectedNumbers.length} / ${nReq}`;
+        const mode = document.getElementById('mode').value;
+        const nReq = parseInt(mode.split('-')[1]);
+        const label = mode.startsWith('TG') ? 'Grupos' : 'Números';
+        document.getElementById('status-text').innerText = `${label} Selecionados: ${selectedNumbers.length} / ${nReq}`;
         document.getElementById('generateBtn').disabled = selectedNumbers.length !== nReq;
     }
 
     function generate() {
-        const [k, n] = document.getElementById('mode').value.split('-').map(Number);
+        const mode = document.getElementById('mode').value;
+        const k = mode.startsWith('TG') ? 3 : parseInt(mode.split('-')[0]);
         const sorted = [...selectedNumbers].sort((a, b) => a - b);
         currentGames = [];
+        
         function combine(start, combo) {
             if (combo.length === k) { currentGames.push([...combo]); return; }
-            for (let i = start; i < sorted.length; i++) { combo.push(sorted[i]); combine(i + 1, combo); combo.pop(); }
+            for (let i = start; i < sorted.length; i++) { 
+                combo.push(sorted[i]); 
+                combine(i + 1, combo); 
+                combo.pop(); 
+            }
         }
+        
         combine(0, []);
-        document.getElementById('results-container').innerHTML = currentGames.map((g, i) => `<div class="ticket" id="game-${i}"><small>#${i+1}</small><br>${g.join('-')}</div>`).join('');
+        const prefix = mode.startsWith('TG') ? 'Gr.' : '';
+        document.getElementById('results-container').innerHTML = currentGames.map((g, i) => 
+            `<div class="ticket" id="game-${i}"><small>#${i+1}</small><br>${g.map(n => prefix + n).join('-')}</div>`
+        ).join('');
         document.getElementById('actionPanel').style.display = 'flex';
+    }
+
+    function updateClock() {
+        const now = new Date();
+        document.getElementById('current-date').innerText = now.toLocaleDateString('pt-BR');
+        document.getElementById('clock').innerText = now.toLocaleTimeString('pt-BR');
+    }
+    setInterval(updateClock, 1000);
+
+    function verPuxada() {
+        const puxadas = { "Avestruz (1)": "Vaca, Águia, Pavão", "Águia (2)": "Coelho, Peru, Galo", "Burro (3)": "Cavalo, Elefante, Veado", "Borboleta (4)": "Cabra, Gato, Leão", "Cachorro (5)": "Galo, Camelo, Macaco", "Cabra (6)": "Touro, Carneiro, Urso", "Carneiro (7)": "Cabra, Coelho, Jacaré", "Camelo (8)": "Cachorro, Elefante, Urso", "Cobra (9)": "Jacaré, Porco, Gato", "Coelho (10)": "Águia, Carneiro, Burro", "Cavalo (11)": "Burro, Touro, Cabra", "Elefante (12)": "Burro, Camelo, Tigre", "Galo (13)": "Cachorro, Pavão, Águia", "Gato (14)": "Cobra, Borboleta, Leão", "Jacaré (15)": "Cobra, Porco, Carneiro", "Leão (16)": "Gato, Tigre, Elefante", "Macaco (17)": "Cachorro, Carneiro, Veado", "Porco (18)": "Cobra, Jacaré, Vaca", "Pavão (19)": "Avestruz, Galo, Coelho", "Peru (20)": "Águia, Pavão, Veado", "Touro (21)": "Vaca, Cabra, Cavalo", "Tigre (22)": "Leão, Gato, Touro", "Urso (23)": "Elefante, Camelo, Cabra", "Veado (24)": "Burro, Macaco, Peru", "Vaca (25)": "Touro, Avestruz, Porco" };
+        const sel = document.getElementById('bichoAnterior').value;
+        document.getElementById('puxada-resultado').innerText = sel ? `Puxada: ${puxadas[sel]}` : "Puxada: --";
     }
 
     function checkGames() {
@@ -338,6 +266,36 @@
             const hits = game.filter(num => draw.includes(num)).length;
             document.getElementById(`game-${i}`).className = (hits >= game.length && draw.length >= game.length) ? 'ticket ganhador' : 'ticket';
         });
+    }
+
+    function initPalpites() {
+        const data = new Date();
+        const seed = data.getDate() + (data.getMonth() + 1) * 31 + data.getFullYear();
+        let random = seed;
+        function getNext() { random = (random * 9301 + 49297) % 233280; return random / 233280; }
+        const container = document.getElementById('palpites-container');
+        container.innerHTML = "";
+        let indices = Array.from({length: 25}, (_, i) => i);
+        let selecionados = [];
+        for(let i=0; i<3; i++) {
+            const idx = Math.floor(getNext() * indices.length);
+            selecionados.push(bichosInfo[indices.splice(idx, 1)[0]]);
+        }
+        selecionados.forEach(bicho => {
+            const gNum = parseInt(bicho.n);
+            const dezenasBase = [(gNum*4).toString().padStart(2,'0').replace('100','00'), (gNum*4-1).toString().padStart(2,'0'), (gNum*4-2).toString().padStart(2,'0'), (gNum*4-3).toString().padStart(2,'0')];
+            let milharesHTML = dezenasBase.map(dez => `<span class="milhar-item">${Math.floor(getNext()*100).toString().padStart(2,'0')}${dez}</span>`).join('');
+            container.innerHTML += `<div class="group-card"><span class="group-icon">${bicho.icon}</span><span class="group-name">${bicho.n} - ${bicho.nome}</span><div class="milhar-list">${milharesHTML}</div></div>`;
+        });
+    }
+
+    function clearAll() {
+        selectedNumbers = []; currentGames = [];
+        document.querySelectorAll('.num-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('results-container').innerHTML = '';
+        document.getElementById('actionPanel').style.display = 'none';
+        document.getElementById('drawResult').value = '';
+        updateStatus();
     }
 
     function copyToClipboard() {
@@ -350,20 +308,15 @@
         window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
     }
 
-    function clearAll() {
-        selectedNumbers = []; currentGames = [];
-        document.querySelectorAll('.num-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById('results-container').innerHTML = '';
-        document.getElementById('actionPanel').style.display = 'none';
-        document.getElementById('drawResult').value = '';
-        document.getElementById('bichoAnterior').value = '';
-        document.getElementById('puxada-resultado').innerText = "Puxada: --";
-        updateStatus();
+    function updateOnlineCounter() {
+        document.getElementById('user-count').innerText = 100 + Math.floor(Math.random() * 50);
+        setTimeout(updateOnlineCounter, 8000);
     }
 
-    setInterval(updateClock, 1000);
+    renderGrid();
     initPalpites();
     updateOnlineCounter();
+    updateClock();
 </script>
 </body>
 </html>
