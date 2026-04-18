@@ -40,7 +40,7 @@
         .sug-item { background: rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 4px; font-size: 1rem; }
 
         .puxada-panel { background: #fff3cd; border: 1px solid #ffeeba; padding: 10px; border-radius: 10px; margin-bottom: 15px; }
-        .puxada-panel select { background: white; margin-top: 5px; width: 100%; padding: 8px; border-radius: 5px; }
+        .puxada-panel select { background: white; margin-top: 5px; width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; }
         #puxada-resultado { font-weight: bold; color: #856404; margin-top: 8px; font-size: 0.9rem; text-align: center; }
 
         .number-grid { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 15px; }
@@ -58,7 +58,7 @@
         .action-buttons { display: none; flex-direction: column; gap: 8px; margin-top: 10px; }
         .btn-whatsapp { background: var(--whatsapp); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .btn-copy { background: #6c757d; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .btn-clear { background: var(--danger); color: white; border: none; padding: 8px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 5px; font-size: 0.8rem; }
+        .btn-clear { background: var(--danger); color: white; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 5px; font-size: 0.9rem; width: 100%; }
 
         #results-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; margin-top: 20px; }
         .ticket { background: #fff; border: 1px solid #dee2e6; padding: 10px; text-align: center; border-radius: 8px; font-family: monospace; font-weight: bold; font-size: 1.1rem; }
@@ -120,10 +120,12 @@
 
         <div class="panel">
             <select id="mode" onchange="clearAll();">
-                <option value="3-6">Centena Invertida (6 dezenas)</option>
-                <option value="3-7">Centena Invertida (7 dezenas)</option>
-                <option value="4-7">Milhar Invertida (7 dezenas)</option>
-                <option value="4-8">Milhar Invertida (8 dezenas)</option>
+                <option value="2-7">Dezena Invertida (7 dezenas -> 21 jogos)</option>
+                <option value="2-8">Dezena Invertida (8 dezenas -> 28 jogos)</option>
+                <option value="3-6">Centena Invertida (6 dezenas -> 20 jogos)</option>
+                <option value="3-7">Centena Invertida (7 dezenas -> 35 jogos)</option>
+                <option value="4-7">Milhar Invertida (7 dezenas -> 35 jogos)</option>
+                <option value="4-8">Milhar Invertida (8 dezenas -> 70 jogos)</option>
             </select>
             <button id="generateBtn" class="main-btn" onclick="generate()" disabled>GERAR JOGOS</button>
             
@@ -232,7 +234,7 @@
 
     function clearAll() {
         selectedNumbers = []; currentGames = [];
-        document.querySelectorAll('.num-btn:,').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.num-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('results-container').innerHTML = '';
         document.getElementById('actionPanel').style.display = 'none';
         document.getElementById('drawResult').value = '';
