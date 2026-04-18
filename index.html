@@ -15,6 +15,7 @@
             --win-blue: #007bff;
             --gold: #f1c40f;
             --mercadopago: #009ee3;
+            --bichostar: #1e3799;
         }
 
         body { font-family: 'Segoe UI', sans-serif; background-color: #e9ecef; margin: 0; padding: 10px; display: flex; justify-content: center; }
@@ -27,12 +28,18 @@
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
 
         .content { padding: 15px; }
-        .donate-section { margin-bottom: 15px; text-align: center; }
-        .btn-donate { 
-            background: var(--mercadopago); color: white; text-decoration: none; 
-            padding: 10px 20px; border-radius: 50px; font-weight: bold; font-size: 0.8rem;
-            display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        
+        /* SEÇÃO DE BOTÕES DE APOIO E CADASTRO */
+        .action-links { display: flex; flex-direction: column; gap: 10px; align-items: center; margin-bottom: 20px; }
+        .btn-link { 
+            text-decoration: none; padding: 12px 20px; border-radius: 50px; 
+            font-weight: bold; font-size: 0.85rem; display: inline-flex; 
+            align-items: center; gap: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+            width: 90%; justify-content: center; transition: transform 0.2s;
         }
+        .btn-link:active { transform: scale(0.98); }
+        .btn-donate { background: var(--mercadopago); color: white; }
+        .btn-banca { background: var(--bichostar); color: white; border: 2px solid var(--gold); }
 
         .suggestions-panel { 
             background: linear-gradient(135deg, #2c3e50, #4ca1af); 
@@ -88,8 +95,9 @@
     </div>
 
     <div class="content">
-        <div class="donate-section">
-            <a href="https://mpago.la/2Hvokm3" target="_blank" class="btn-donate">🤝 Manter o site ativo</a>
+        <div class="action-links">
+            <a href="https://mpago.la/2Hvokm3" target="_blank" class="btn-link btn-donate">🤝 MANTER SITE ATIVO (DOAÇÃO)</a>
+            <a href="https://bichostars.net/register?ind=8736" target="_blank" class="btn-link btn-banca">🎰 JOGAR AGORA (BANCA ONLINE)</a>
         </div>
 
         <div class="suggestions-panel">
@@ -190,15 +198,12 @@
         grid.innerHTML = '';
         const mode = document.getElementById('mode').value;
         const isTerno = mode.startsWith('TG');
-        
-        // Se for Terno de Grupo: 1 a 25. Se for Milhar/Centena/Dezena: 0 a 9.
         const start = isTerno ? 1 : 0;
         const max = isTerno ? 25 : 9;
 
         for (let i = start; i <= max; i++) {
             const btn = document.createElement('button');
-            // No Terno mostra o número real, na Milhar mostra normal
-            btn.innerText = isTerno ? i : i;
+            btn.innerText = i;
             btn.className = 'num-btn';
             btn.onclick = () => {
                 const idx = selectedNumbers.indexOf(i);
@@ -229,21 +234,13 @@
         const k = mode.startsWith('TG') ? 3 : parseInt(mode.split('-')[0]);
         const sorted = [...selectedNumbers].sort((a, b) => a - b);
         currentGames = [];
-        
         function combine(start, combo) {
             if (combo.length === k) { currentGames.push([...combo]); return; }
-            for (let i = start; i < sorted.length; i++) { 
-                combo.push(sorted[i]); 
-                combine(i + 1, combo); 
-                combo.pop(); 
-            }
+            for (let i = start; i < sorted.length; i++) { combo.push(sorted[i]); combine(i + 1, combo); combo.pop(); }
         }
-        
         combine(0, []);
         const prefix = mode.startsWith('TG') ? 'Gr.' : '';
-        document.getElementById('results-container').innerHTML = currentGames.map((g, i) => 
-            `<div class="ticket" id="game-${i}"><small>#${i+1}</small><br>${g.map(n => prefix + n).join('-')}</div>`
-        ).join('');
+        document.getElementById('results-container').innerHTML = currentGames.map((g, i) => `<div class="ticket" id="game-${i}"><small>#${i+1}</small><br>${g.map(n => prefix + n).join('-')}</div>`).join('');
         document.getElementById('actionPanel').style.display = 'flex';
     }
 
