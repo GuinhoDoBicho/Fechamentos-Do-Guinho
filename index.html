@@ -30,16 +30,18 @@
             display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        /* Relógio e Painel de Palpites */
         .suggestions-panel { 
             background: linear-gradient(135deg, #2c3e50, #4ca1af); 
             color: white; padding: 15px; border-radius: 10px; margin-bottom: 20px; 
             text-align: center; border: 2px solid var(--gold);
         }
         .clock-display { font-family: monospace; font-size: 1.2rem; color: var(--gold); margin-bottom: 10px; font-weight: bold; background: rgba(0,0,0,0.2); display: inline-block; padding: 5px 15px; border-radius: 20px; }
-        .suggestions-panel h3 { margin: 0 0 10px 0; font-size: 0.8rem; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
         .suggestion-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; font-weight: bold; font-family: monospace; }
-        .sug-item { background: rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 4px; font-size: 1rem; border: 1px solid rgba(255,255,255,0.1); }
+        .sug-item { background: rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 4px; font-size: 1rem; }
+
+        .puxada-panel { background: #fff3cd; border: 1px solid #ffeeba; padding: 10px; border-radius: 10px; margin-bottom: 15px; }
+        .puxada-panel select { background: white; margin-top: 5px; width: 100%; padding: 8px; border-radius: 5px; }
+        #puxada-resultado { font-weight: bold; color: #856404; margin-top: 8px; font-size: 0.9rem; text-align: center; }
 
         .number-grid { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 15px; }
         .num-btn { 
@@ -51,9 +53,12 @@
         .panel { background: var(--light); padding: 12px; border-radius: 10px; display: flex; flex-direction: column; gap: 10px; }
         select, input, button.main-btn { padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 1rem; width: 100%; box-sizing: border-box; }
         button.main-btn { background: var(--success); color: white; border: none; font-weight: bold; cursor: pointer; }
+        button.main-btn:disabled { background: #bdc3c7; }
         
         .action-buttons { display: none; flex-direction: column; gap: 8px; margin-top: 10px; }
         .btn-whatsapp { background: var(--whatsapp); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-copy { background: #6c757d; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-clear { background: var(--danger); color: white; border: none; padding: 8px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 5px; font-size: 0.8rem; }
 
         #results-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; margin-top: 20px; }
         .ticket { background: #fff; border: 1px solid #dee2e6; padding: 10px; text-align: center; border-radius: 8px; font-family: monospace; font-weight: bold; font-size: 1.1rem; }
@@ -72,33 +77,65 @@
 
         <div class="suggestions-panel">
             <div id="clock" class="clock-display">00:00:00</div>
-            <h3>✨ Palpites Diários</h3>
+            <h3 style="font-size:0.8rem">✨ PALPITES DIÁRIOS (00H)</h3>
             <div id="palpites-milhar" class="suggestion-group" style="margin-bottom: 8px;"></div>
             <div id="palpites-centena" class="suggestion-group"></div>
+        </div>
+
+        <div class="puxada-panel">
+            <label style="font-size: 0.8rem; font-weight: bold;">🔎 O QUE DEU? (VER PUXADA):</label>
+            <select id="bichoAnterior" onchange="verPuxada()">
+                <option value="">Selecione o Bicho...</option>
+                <option value="Avestruz (1)">Avestruz (1)</option>
+                <option value="Águia (2)">Águia (2)</option>
+                <option value="Burro (3)">Burro (3)</option>
+                <option value="Borboleta (4)">Borboleta (4)</option>
+                <option value="Cachorro (5)">Cachorro (5)</option>
+                <option value="Cabra (6)">Cabra (6)</option>
+                <option value="Carneiro (7)">Carneiro (7)</option>
+                <option value="Camelo (8)">Camelo (8)</option>
+                <option value="Cobra (9)">Cobra (9)</option>
+                <option value="Coelho (10)">Coelho (10)</option>
+                <option value="Cavalo (11)">Cavalo (11)</option>
+                <option value="Elefante (12)">Elefante (12)</option>
+                <option value="Galo (13)">Galo (13)</option>
+                <option value="Gato (14)">Gato (14)</option>
+                <option value="Jacaré (15)">Jacaré (15)</option>
+                <option value="Leão (16)">Leão (16)</option>
+                <option value="Macaco (17)">Macaco (17)</option>
+                <option value="Porco (18)">Porco (18)</option>
+                <option value="Pavão (19)">Pavão (19)</option>
+                <option value="Peru (20)">Peru (20)</option>
+                <option value="Touro (21)">Touro (21)</option>
+                <option value="Tigre (22)">Tigre (22)</option>
+                <option value="Urso (23)">Urso (23)</option>
+                <option value="Veado (24)">Veado (24)</option>
+                <option value="Vaca (25)">Vaca (25)</option>
+            </select>
+            <div id="puxada-resultado">Puxada: --</div>
         </div>
 
         <div class="number-grid" id="grid"></div>
         <div id="status-text" style="text-align:center; margin-bottom:10px; font-weight:bold; font-size:0.9rem;">Selecione os números</div>
 
         <div class="panel">
-            <div class="control-group">
-                <label style="font-weight:bold; font-size:0.8rem;">Modalidade:</label>
-                <select id="mode" onchange="clearAll();">
-                    <option value="3-6">Centena Invertida (6 dezenas)</option>
-                    <option value="3-7">Centena Invertida (7 dezenas)</option>
-                    <option value="4-7">Milhar Invertida (7 dezenas)</option>
-                    <option value="4-8">Milhar Invertida (8 dezenas)</option>
-                </select>
-                <button id="generateBtn" class="main-btn" onclick="generate()" disabled>GERAR JOGOS</button>
-                <div id="actionPanel" class="action-buttons">
-                    <button class="btn-whatsapp" onclick="shareWhatsapp()">COMPARTILHAR NO WHATSAPP</button>
-                </div>
+            <select id="mode" onchange="clearAll();">
+                <option value="3-6">Centena Invertida (6 dezenas)</option>
+                <option value="3-7">Centena Invertida (7 dezenas)</option>
+                <option value="4-7">Milhar Invertida (7 dezenas)</option>
+                <option value="4-8">Milhar Invertida (8 dezenas)</option>
+            </select>
+            <button id="generateBtn" class="main-btn" onclick="generate()" disabled>GERAR JOGOS</button>
+            
+            <div id="actionPanel" class="action-buttons">
+                <button class="btn-copy" onclick="copyToClipboard()">📋 COPIAR JOGOS</button>
+                <button class="btn-whatsapp" onclick="shareWhatsapp()">📲 WHATSAPP</button>
             </div>
 
-            <div class="control-group">
-                <label style="font-weight:bold; font-size:0.8rem;">Conferidor Azul:</label>
-                <input type="text" id="drawResult" placeholder="Digite o resultado..." oninput="checkGames()">
-                <button onclick="clearAll()" style="color:var(--danger); background:none; border:none; padding:5px; cursor:pointer; text-decoration:underline; font-size: 0.8rem;">Limpar Seleção</button>
+            <div style="border-top: 1px solid #ddd; padding-top: 10px; margin-top: 5px;">
+                <label style="font-weight:bold; font-size:0.8rem;">CONFERIDOR AZUL:</label>
+                <input type="text" id="drawResult" placeholder="Digite o resultado (ex: 1,2,3)" oninput="checkGames()">
+                <button class="btn-clear" onclick="clearAll()">🗑️ LIMPAR TUDO</button>
             </div>
         </div>
 
@@ -109,20 +146,28 @@
 <script>
     let selectedNumbers = [];
     let currentGames = [];
-    let lastDateStr = "";
+    
+    const puxadas = {
+        "Avestruz (1)": "Vaca, Águia, Pavão", "Águia (2)": "Coelho, Peru, Galo", "Burro (3)": "Cavalo, Elefante, Veado",
+        "Borboleta (4)": "Cabra, Gato, Leão", "Cachorro (5)": "Galo, Camelo, Macaco", "Cabra (6)": "Touro, Carneiro, Urso",
+        "Carneiro (7)": "Cabra, Coelho, Jacaré", "Camelo (8)": "Cachorro, Elefante, Urso", "Cobra (9)": "Jacaré, Porco, Gato",
+        "Coelho (10)": "Águia, Carneiro, Burro", "Cavalo (11)": "Burro, Touro, Cabra", "Elefante (12)": "Burro, Camelo, Tigre",
+        "Galo (13)": "Cachorro, Pavão, Águia", "Gato (14)": "Cobra, Borboleta, Leão", "Jacaré (15)": "Cobra, Porco, Carneiro",
+        "Leão (16)": "Gato, Tigre, Elefante", "Macaco (17)": "Cachorro, Carneiro, Veado", "Porco (18)": "Cobra, Jacaré, Vaca",
+        "Pavão (19)": "Avestruz, Galo, Coelho", "Peru (20)": "Águia, Pavão, Veado", "Touro (21)": "Vaca, Cabra, Cavalo",
+        "Tigre (22)": "Leão, Gato, Touro", "Urso (23)": "Elefante, Camelo, Cabra", "Veado (24)": "Burro, Macaco, Peru",
+        "Vaca (25)": "Touro, Avestruz, Porco"
+    };
+
+    function verPuxada() {
+        const sel = document.getElementById('bichoAnterior').value;
+        document.getElementById('puxada-resultado').innerText = sel ? `Puxada: ${puxadas[sel]}` : "Puxada: --";
+    }
 
     function updateClock() {
         const now = new Date();
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const seconds = String(now.getSeconds()).padStart(2, '0');
-        document.getElementById('clock').innerText = `${hours}:${minutes}:${seconds}`;
-
-        const currentDateStr = now.toLocaleDateString();
-        if (lastDateStr !== "" && lastDateStr !== currentDateStr) {
-            initPalpites(); // Muda os palpites na virada da meia-noite
-        }
-        lastDateStr = currentDateStr;
+        document.getElementById('clock').innerText = now.toLocaleTimeString();
+        if(now.getHours() === 0 && now.getMinutes() === 0 && now.getSeconds() === 0) initPalpites();
     }
 
     function initPalpites() {
@@ -130,17 +175,8 @@
         const seed = data.getDate() + data.getMonth() + data.getFullYear();
         let random = seed;
         function getNext() { random = (random * 9301 + 49297) % 233280; return random / 233280; }
-        
-        const mDiv = document.getElementById('palpites-milhar');
-        const cDiv = document.getElementById('palpites-centena');
-        
-        let mHtml = "M: ";
-        for(let i=0; i<5; i++) mHtml += `<span class="sug-item">${Math.floor(getNext() * 10000).toString().padStart(4, '0')}</span>`;
-        mDiv.innerHTML = mHtml;
-        
-        let cHtml = "C: ";
-        for(let i=0; i<5; i++) cHtml += `<span class="sug-item">${Math.floor(getNext() * 1000).toString().padStart(3, '0')}</span>`;
-        cDiv.innerHTML = cHtml;
+        document.getElementById('palpites-milhar').innerHTML = "M: " + Array(5).fill(0).map(() => `<span class="sug-item">${Math.floor(getNext()*10000).toString().padStart(4,'0')}</span>`).join('');
+        document.getElementById('palpites-centena').innerHTML = "C: " + Array(5).fill(0).map(() => `<span class="sug-item">${Math.floor(getNext()*1000).toString().padStart(3,'0')}</span>`).join('');
     }
 
     const grid = document.getElementById('grid');
@@ -172,40 +208,36 @@
             for (let i = start; i < sorted.length; i++) { combo.push(sorted[i]); combine(i + 1, combo); combo.pop(); }
         }
         combine(0, []);
-        render();
+        document.getElementById('results-container').innerHTML = currentGames.map((g, i) => `<div class="ticket" id="game-${i}"><small>#${i+1}</small><br>${g.join('-')}</div>`).join('');
         document.getElementById('actionPanel').style.display = 'flex';
     }
 
-    function render() {
-        const container = document.getElementById('results-container');
-        container.innerHTML = currentGames.map((g, i) => `<div class="ticket" id="game-${i}"><small style="color:#999;font-size:10px">#${i+1}</small><br>${g.join('-')}</div>`).join('');
-    }
-
     function checkGames() {
-        const val = document.getElementById('drawResult').value;
-        const draw = val.split(/[,.-]/).map(n => parseInt(n.trim())).filter(n => !isNaN(n));
+        const draw = document.getElementById('drawResult').value.split(/[,.-]/).map(n => parseInt(n.trim())).filter(n => !isNaN(n));
         currentGames.forEach((game, i) => {
-            const div = document.getElementById(`game-${i}`);
-            if (!div) return;
             const hits = game.filter(num => draw.includes(num)).length;
-            if (hits >= game.length && draw.length >= game.length) div.classList.add('ganhador');
-            else div.classList.remove('ganhador');
+            document.getElementById(`game-${i}`).className = (hits >= game.length && draw.length >= game.length) ? 'ticket ganhador' : 'ticket';
         });
     }
 
+    function copyToClipboard() {
+        let text = `FECHAMENTOS DO GUINHO\n\n` + currentGames.map((g, i) => `Jogo ${i+1}: ${g.join('-')}`).join('\n');
+        navigator.clipboard.writeText(text).then(() => alert("Jogos copiados!"));
+    }
+
     function shareWhatsapp() {
-        const mode = document.getElementById('mode').options[document.getElementById('mode').selectedIndex].text;
-        let t = `*FECHAMENTOS DO GUINHO*\n*${mode}*\n*Números:* ${selectedNumbers.sort().join(', ')}\n\n`;
-        currentGames.forEach((g, i) => t += `Jogo ${i+1}: ${g.join('-')}\n`);
-        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(t)}`, '_blank');
+        let text = `*FECHAMENTOS DO GUINHO*\n\n` + currentGames.map((g, i) => `Jogo ${i+1}: ${g.join('-')}`).join('\n');
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
     }
 
     function clearAll() {
         selectedNumbers = []; currentGames = [];
-        document.querySelectorAll('.num-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.num-btn:,').forEach(b => b.classList.remove('active'));
         document.getElementById('results-container').innerHTML = '';
-        document.getElementById('drawResult').value = '';
         document.getElementById('actionPanel').style.display = 'none';
+        document.getElementById('drawResult').value = '';
+        document.getElementById('bichoAnterior').value = '';
+        document.getElementById('puxada-resultado').innerText = "Puxada: --";
         updateStatus();
     }
 
