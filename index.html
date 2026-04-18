@@ -22,7 +22,6 @@
         .header { background: var(--primary); color: white; padding: 15px; text-align: center; border-bottom: 4px solid var(--gold); }
         .header h1 { margin: 0; font-size: 1.5rem; }
         
-        /* Contador de Pessoas Online */
         .online-counter { font-size: 0.75rem; color: #a5d6a7; margin-top: 5px; display: flex; align-items: center; justify-content: center; gap: 5px; }
         .dot { height: 8px; width: 8px; background-color: #2ecc71; border-radius: 50%; display: inline-block; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
@@ -35,15 +34,40 @@
             display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
+        /* PAINEL DE PALPITES - ALINHADO LADO A LADO */
         .suggestions-panel { 
             background: linear-gradient(135deg, #2c3e50, #4ca1af); 
-            color: white; padding: 15px; border-radius: 10px; margin-bottom: 20px; 
+            color: white; padding: 15px 10px; border-radius: 10px; margin-bottom: 20px; 
             text-align: center; border: 2px solid var(--gold);
         }
         .clock-display { font-family: monospace; font-size: 1.2rem; color: var(--gold); margin-bottom: 10px; font-weight: bold; background: rgba(0,0,0,0.2); display: inline-block; padding: 5px 15px; border-radius: 20px; }
-        .suggestion-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; font-weight: bold; font-family: monospace; }
-        .sug-item { background: rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 4px; font-size: 1rem; }
+        
+        .suggestion-container { 
+            display: flex; 
+            justify-content: space-around; 
+            gap: 8px; 
+            margin-top: 10px;
+            overflow-x: auto; /* Permite rolar se a tela for muito pequena */
+            padding-bottom: 5px;
+        }
 
+        /* Estilização da barra de rolagem para ficar discreta */
+        .suggestion-container::-webkit-scrollbar { height: 4px; }
+        .suggestion-container::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+
+        .group-card { 
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 8px; padding: 8px; 
+            flex: 1; /* Faz os 3 ocuparem o mesmo espaço */
+            min-width: 100px; /* Garante que não fiquem esmagados */
+            text-align: center;
+        }
+        .group-icon { font-size: 1.8rem; display: block; margin-bottom: 3px; }
+        .group-name { font-weight: bold; color: var(--gold); font-size: 0.75rem; display: block; margin-bottom: 5px; border-bottom: 1px solid rgba(255,255,255,0.2); white-space: nowrap; }
+        .milhar-list { font-family: monospace; font-size: 0.85rem; line-height: 1.3; color: #fff; font-weight: bold; }
+        .milhar-item { display: block; letter-spacing: 0.5px; }
+
+        /* Resto dos Estilos */
         .puxada-panel { background: #fff3cd; border: 1px solid #ffeeba; padding: 10px; border-radius: 10px; margin-bottom: 15px; }
         .puxada-panel select { background: white; margin-top: 5px; width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; }
         #puxada-resultado { font-weight: bold; color: #856404; margin-top: 8px; font-size: 0.9rem; text-align: center; }
@@ -87,9 +111,9 @@
 
         <div class="suggestions-panel">
             <div id="clock" class="clock-display">00:00:00</div>
-            <h3 style="font-size:0.8rem">✨ PALPITES DIÁRIOS (00H)</h3>
-            <div id="palpites-milhar" class="suggestion-group" style="margin-bottom: 8px;"></div>
-            <div id="palpites-centena" class="suggestion-group"></div>
+            <h3 style="font-size:0.75rem; margin: 5px 0;">✨ GRUPOS E MILHARES DO DIA</h3>
+            <div id="palpites-container" class="suggestion-container">
+                </div>
         </div>
 
         <div class="puxada-panel">
@@ -157,19 +181,22 @@
 <script>
     let selectedNumbers = [];
     let currentGames = [];
-    
-    // Simulação de Contador Online
-    function updateOnlineCounter() {
-        const hour = new Date().getHours();
-        let base;
-        if (hour >= 0 && hour < 6) base = 40 + Math.floor(Math.random() * 30);
-        else if (hour >= 6 && hour < 12) base = 150 + Math.floor(Math.random() * 100);
-        else if (hour >= 12 && hour < 18) base = 300 + Math.floor(Math.random() * 200);
-        else base = 200 + Math.floor(Math.random() * 150);
-        
-        document.getElementById('user-count').innerText = base;
-        setTimeout(updateOnlineCounter, 5000 + Math.random() * 5000);
-    }
+
+    const bichosInfo = [
+        { n: "01", nome: "Avestruz", icon: "🐦" }, { n: "02", nome: "Águia", icon: "🦅" },
+        { n: "03", nome: "Burro", icon: "🫏" }, { n: "04", nome: "Borboleta", icon: "🦋" },
+        { n: "05", nome: "Cachorro", icon: "🐶" }, { n: "06", nome: "Cabra", icon: "🐐" },
+        { n: "07", nome: "Carneiro", icon: "🐏" }, { n: "08", nome: "Camelo", icon: "🐫" },
+        { n: "09", nome: "Cobra", icon: "🐍" }, { n: "10", nome: "Coelho", icon: "🐰" },
+        { n: "11", nome: "Cavalo", icon: "🐎" }, { n: "12", nome: "Elefante", icon: "🐘" },
+        { n: "13", nome: "Galo", icon: "🐓" }, { n: "14", nome: "Gato", icon: "🐈" },
+        { n: "15", nome: "Jacaré", icon: "🐊" }, { n: "16", nome: "Leão", icon: "🦁" },
+        { n: "17", nome: "Macaco", icon: "🐒" }, { n: "18", nome: "Porco", icon: "🐷" },
+        { n: "19", nome: "Pavão", icon: "🦚" }, { n: "20", nome: "Peru", icon: "🦃" },
+        { n: "21", nome: "Touro", icon: "🐂" }, { n: "22", nome: "Tigre", icon: "🐅" },
+        { n: "23", nome: "Urso", icon: "🐻" }, { n: "24", nome: "Veado", icon: "🦌" },
+        { n: "25", nome: "Vaca", icon: "🐄" }
+    ];
 
     const puxadas = {
         "Avestruz (1)": "Vaca, Águia, Pavão", "Águia (2)": "Coelho, Peru, Galo", "Burro (3)": "Cavalo, Elefante, Veado",
@@ -182,6 +209,13 @@
         "Tigre (22)": "Leão, Gato, Touro", "Urso (23)": "Elefante, Camelo, Cabra", "Veado (24)": "Burro, Macaco, Peru",
         "Vaca (25)": "Touro, Avestruz, Porco"
     };
+    
+    function updateOnlineCounter() {
+        const hour = new Date().getHours();
+        let base = hour >= 12 && hour < 18 ? 300 : 100;
+        document.getElementById('user-count').innerText = base + Math.floor(Math.random() * 50);
+        setTimeout(updateOnlineCounter, 8000);
+    }
 
     function verPuxada() {
         const sel = document.getElementById('bichoAnterior').value;
@@ -196,11 +230,43 @@
 
     function initPalpites() {
         const data = new Date();
-        const seed = data.getDate() + data.getMonth() + data.getFullYear();
+        const seed = data.getDate() + (data.getMonth() + 1) * 31 + data.getFullYear();
         let random = seed;
         function getNext() { random = (random * 9301 + 49297) % 233280; return random / 233280; }
-        document.getElementById('palpites-milhar').innerHTML = "M: " + Array(5).fill(0).map(() => `<span class="sug-item">${Math.floor(getNext()*10000).toString().padStart(4,'0')}</span>`).join('');
-        document.getElementById('palpites-centena').innerHTML = "C: " + Array(5).fill(0).map(() => `<span class="sug-item">${Math.floor(getNext()*1000).toString().padStart(3,'0')}</span>`).join('');
+
+        const container = document.getElementById('palpites-container');
+        container.innerHTML = "";
+
+        let indices = Array.from({length: 25}, (_, i) => i);
+        let selecionados = [];
+        for(let i=0; i<3; i++) {
+            const idx = Math.floor(getNext() * indices.length);
+            selecionados.push(bichosInfo[indices.splice(idx, 1)[0]]);
+        }
+
+        selecionados.forEach(bicho => {
+            const gNum = parseInt(bicho.n);
+            const dezenasBase = [
+                (gNum * 4).toString().padStart(2, '0').replace('100', '00'),
+                (gNum * 4 - 1).toString().padStart(2, '0'),
+                (gNum * 4 - 2).toString().padStart(2, '0'),
+                (gNum * 4 - 3).toString().padStart(2, '0')
+            ];
+
+            let milharesHTML = "";
+            dezenasBase.forEach(dez => {
+                const prefixo = Math.floor(getNext() * 100).toString().padStart(2, '0');
+                milharesHTML += `<span class="milhar-item">${prefixo}${dez}</span>`;
+            });
+
+            container.innerHTML += `
+                <div class="group-card">
+                    <span class="group-icon">${bicho.icon}</span>
+                    <span class="group-name">${bicho.n} - ${bicho.nome}</span>
+                    <div class="milhar-list">${milharesHTML}</div>
+                </div>
+            `;
+        });
     }
 
     const grid = document.getElementById('grid');
