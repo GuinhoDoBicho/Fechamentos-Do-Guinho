@@ -21,8 +21,13 @@
         .main-card { background: white; width: 100%; max-width: 600px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; }
         .header { background: var(--primary); color: white; padding: 15px; text-align: center; border-bottom: 4px solid var(--gold); }
         .header h1 { margin: 0; font-size: 1.5rem; }
-        .content { padding: 15px; }
+        
+        /* Contador de Pessoas Online */
+        .online-counter { font-size: 0.75rem; color: #a5d6a7; margin-top: 5px; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .dot { height: 8px; width: 8px; background-color: #2ecc71; border-radius: 50%; display: inline-block; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
 
+        .content { padding: 15px; }
         .donate-section { margin-bottom: 15px; text-align: center; }
         .btn-donate { 
             background: var(--mercadopago); color: white; text-decoration: none; 
@@ -68,7 +73,12 @@
 <body>
 
 <div class="main-card">
-    <div class="header"><h1>Fechamentos Do Guinho</h1></div>
+    <div class="header">
+        <h1>Fechamentos Do Guinho</h1>
+        <div class="online-counter">
+            <span class="dot"></span> <span id="user-count">Carregando...</span> pessoas online agora
+        </div>
+    </div>
 
     <div class="content">
         <div class="donate-section">
@@ -135,8 +145,7 @@
             </div>
 
             <div style="border-top: 1px solid #ddd; padding-top: 10px; margin-top: 5px;">
-                <label style="font-weight:bold; font-size:0.8rem;">CONFERIDOR AZUL:</label>
-                <input type="text" id="drawResult" placeholder="Digite o resultado (ex: 1,2,3)" oninput="checkGames()">
+                <input type="text" id="drawResult" placeholder="Conferidor Azul (ex: 1,2,3)" oninput="checkGames()">
                 <button class="btn-clear" onclick="clearAll()">🗑️ LIMPAR TUDO</button>
             </div>
         </div>
@@ -149,6 +158,19 @@
     let selectedNumbers = [];
     let currentGames = [];
     
+    // Simulação de Contador Online
+    function updateOnlineCounter() {
+        const hour = new Date().getHours();
+        let base;
+        if (hour >= 0 && hour < 6) base = 40 + Math.floor(Math.random() * 30);
+        else if (hour >= 6 && hour < 12) base = 150 + Math.floor(Math.random() * 100);
+        else if (hour >= 12 && hour < 18) base = 300 + Math.floor(Math.random() * 200);
+        else base = 200 + Math.floor(Math.random() * 150);
+        
+        document.getElementById('user-count').innerText = base;
+        setTimeout(updateOnlineCounter, 5000 + Math.random() * 5000);
+    }
+
     const puxadas = {
         "Avestruz (1)": "Vaca, Águia, Pavão", "Águia (2)": "Coelho, Peru, Galo", "Burro (3)": "Cavalo, Elefante, Veado",
         "Borboleta (4)": "Cabra, Gato, Leão", "Cachorro (5)": "Galo, Camelo, Macaco", "Cabra (6)": "Touro, Carneiro, Urso",
@@ -245,6 +267,7 @@
 
     setInterval(updateClock, 1000);
     initPalpites();
+    updateOnlineCounter();
 </script>
 </body>
 </html>
