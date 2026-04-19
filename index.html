@@ -16,7 +16,7 @@
             --gold: #f1c40f;
             --mercadopago: #009ee3;
             --bichostar: #1e3799;
-            /* Variáveis de Fundo e Texto */
+            /* Cores Dinâmicas */
             --bg-body: #e9ecef;
             --bg-card: #ffffff;
             --text-main: #2c3e50;
@@ -24,40 +24,28 @@
             --border-color: #ddd;
         }
 
-        /* Definições do Tema Escuro */
         [data-theme="dark"] {
-            --bg-body: #1a1a1a;
-            --bg-card: #2d2d2d;
-            --text-main: #f8f9fa;
-            --light: #3d3d3d;
-            --input-bg: #444444;
-            --border-color: #555;
+            --bg-body: #121212;
+            --bg-card: #1e1e1e;
+            --text-main: #e0e0e0;
+            --light: #2d2d2d;
+            --input-bg: #333333;
+            --border-color: #444;
         }
 
-        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-body); color: var(--text-main); margin: 0; padding: 10px; display: flex; justify-content: center; transition: background 0.3s; }
-        .main-card { background: var(--bg-card); width: 100%; max-width: 600px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); overflow: hidden; transition: background 0.3s; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-body); color: var(--text-main); margin: 0; padding: 10px; display: flex; justify-content: center; transition: 0.3s; }
+        .main-card { background: var(--bg-card); width: 100%; max-width: 600px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; }
+        
         .header { background: var(--primary); color: white; padding: 15px; text-align: center; border-bottom: 4px solid var(--gold); position: relative; }
         .header h1 { margin: 0; font-size: 1.5rem; }
         
-        /* Botão de Tema */
-        .theme-toggle {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s;
+        /* Botão Sol/Lua */
+        .theme-btn {
+            position: absolute; right: 10px; top: 10px;
+            background: rgba(255,255,255,0.1); border: 1px solid var(--gold);
+            color: var(--gold); border-radius: 50%; width: 35px; height: 35px;
+            cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center;
         }
-        .theme-toggle:hover { background: rgba(255,255,255,0.2); }
 
         .online-counter { font-size: 0.75rem; color: #a5d6a7; margin-top: 5px; display: flex; align-items: center; justify-content: center; gap: 5px; }
         .dot { height: 8px; width: 8px; background-color: #2ecc71; border-radius: 50%; display: inline-block; animation: pulse 1.5s infinite; }
@@ -94,22 +82,22 @@
         .milhar-item { display: block; letter-spacing: 0.5px; }
 
         .puxada-panel { background: #fff3cd; border: 1px solid #ffeeba; padding: 10px; border-radius: 10px; margin-bottom: 15px; }
-        [data-theme="dark"] .puxada-panel { background: #3a3521; border-color: #5d512a; }
+        [data-theme="dark"] .puxada-panel { background: #332b00; border-color: #665500; }
         .puxada-panel select { background: var(--input-bg); color: var(--text-main); margin-top: 5px; width: 100%; padding: 8px; border-radius: 5px; border: 1px solid var(--border-color); }
         #puxada-resultado { font-weight: bold; color: #856404; margin-top: 8px; font-size: 0.9rem; text-align: center; }
-        [data-theme="dark"] #puxada-resultado { color: #f1c40f; }
+        [data-theme="dark"] #puxada-resultado { color: #ffeeba; }
 
         .number-grid { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; margin-bottom: 15px; }
         .num-btn { 
             width: 45px; height: 45px; border: 2px solid var(--border-color); border-radius: 8px; 
-            background: var(--input-bg); color: var(--text-main); font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.2s;
+            background: var(--input-bg); color: var(--text-main); font-size: 1.1rem; font-weight: bold; cursor: pointer; 
         }
         .num-btn.active { background: var(--secondary); color: white; border-color: var(--secondary); }
 
         .panel { background: var(--light); padding: 12px; border-radius: 10px; display: flex; flex-direction: column; gap: 10px; }
         select, input, button.main-btn { padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 1rem; width: 100%; box-sizing: border-box; background: var(--input-bg); color: var(--text-main); }
         button.main-btn { background: var(--success); color: white; border: none; font-weight: bold; cursor: pointer; }
-        button.main-btn:disabled { background: #bdc3c7; color: #7f8c8d; }
+        button.main-btn:disabled { background: #bdc3c7; color: #666; }
         
         .action-buttons { display: none; flex-direction: column; gap: 8px; margin-top: 10px; }
         .btn-whatsapp { background: var(--whatsapp); color: white !important; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
@@ -117,7 +105,7 @@
         .btn-clear { background: var(--danger); color: white !important; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 5px; font-size: 0.9rem; width: 100%; }
 
         #results-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; margin-top: 20px; }
-        .ticket { background: var(--input-bg); border: 1px solid var(--border-color); padding: 10px; text-align: center; border-radius: 8px; font-family: monospace; font-weight: bold; font-size: 1.1rem; color: var(--text-main); }
+        .ticket { background: var(--input-bg); border: 1px solid var(--border-color); padding: 10px; text-align: center; border-radius: 8px; font-family: monospace; font-weight: bold; font-size: 1.1rem; }
         .ticket.ganhador { background: var(--win-blue) !important; color: white !important; }
     </style>
 </head>
@@ -125,7 +113,7 @@
 
 <div class="main-card">
     <div class="header">
-        <button class="theme-toggle" onclick="toggleTheme()" title="Mudar Tema">🌗</button>
+        <button class="theme-btn" onclick="toggleTheme()" id="themeIcon">🌗</button>
         <h1>Fechamentos Do Guinho</h1>
         <div class="online-counter">
             <span class="dot"></span> <span id="user-count">Carregando...</span> pessoas online agora
@@ -212,11 +200,11 @@
 </div>
 
 <script>
-    // FUNÇÃO DE TEMA (NOVA)
+    // FUNÇÃO DE TEMA CORRIGIDA
     function toggleTheme() {
         const body = document.body;
-        const currentTheme = body.getAttribute('data-theme');
-        if (currentTheme === 'dark') {
+        const isDark = body.getAttribute('data-theme') === 'dark';
+        if (isDark) {
             body.removeAttribute('data-theme');
             localStorage.setItem('theme', 'light');
         } else {
@@ -225,12 +213,11 @@
         }
     }
 
-    // Carregar tema salvo ao iniciar
-    if(localStorage.getItem('theme') === 'dark') {
+    // Inicializar Tema
+    if (localStorage.getItem('theme') === 'dark') {
         document.body.setAttribute('data-theme', 'dark');
     }
 
-    // --- FUNÇÕES ORIGINAIS MANTIDAS ---
     let selectedNumbers = [];
     let currentGames = [];
 
@@ -315,10 +302,12 @@
     }
 
     function checkGames() {
-        const draw = document.getElementById('drawResult').value.split(/[,.-]/).map(n => parseInt(n.trim())).filter(n => !isNaN(n));
+        const drawInput = document.getElementById('drawResult').value;
+        const draw = drawInput.split(/[,.-]/).map(n => parseInt(n.trim())).filter(n => !isNaN(n));
         currentGames.forEach((game, i) => {
             const hits = game.filter(num => draw.includes(num)).length;
-            document.getElementById(`game-${i}`).className = (hits >= game.length && draw.length >= game.length) ? 'ticket ganhador' : 'ticket';
+            const el = document.getElementById(`game-${i}`);
+            if (el) el.className = (hits >= game.length && draw.length >= game.length) ? 'ticket ganhador' : 'ticket';
         });
     }
 
@@ -339,4 +328,39 @@
             const gNum = parseInt(bicho.n);
             const dezenasBase = [(gNum*4).toString().padStart(2,'0').replace('100','00'), (gNum*4-1).toString().padStart(2,'0'), (gNum*4-2).toString().padStart(2,'0'), (gNum*4-3).toString().padStart(2,'0')];
             let milharesHTML = dezenasBase.map(dez => `<span class="milhar-item">${Math.floor(getNext()*100).toString().padStart(2,'0')}${dez}</span>`).join('');
-            container.innerHTML += `<div class="group-card"><span class="group-icon">${bicho.icon}</span><span class="group-name">${bicho.n} - ${bicho.nome}</span><div class="milhar-list">${milharesHTML}</div></div>
+            container.innerHTML += `<div class="group-card"><span class="group-icon">${bicho.icon}</span><span class="group-name">${bicho.n} - ${bicho.nome}</span><div class="milhar-list">${milharesHTML}</div></div>`;
+        });
+    }
+
+    function clearAll() {
+        selectedNumbers = []; currentGames = [];
+        document.querySelectorAll('.num-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('results-container').innerHTML = '';
+        document.getElementById('actionPanel').style.display = 'none';
+        document.getElementById('drawResult').value = '';
+        updateStatus();
+    }
+
+    function copyToClipboard() {
+        let text = `FECHAMENTOS DO GUINHO\n\n` + currentGames.map((g, i) => `Jogo ${i+1}: ${g.join('-')}`).join('\n');
+        navigator.clipboard.writeText(text).then(() => alert("Jogos copiados!"));
+    }
+
+    function shareWhatsapp() {
+        let text = `*FECHAMENTOS DO GUINHO*\n\n` + currentGames.map((g, i) => `Jogo ${i+1}: ${g.join('-')}`).join('\n');
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    function updateOnlineCounter() {
+        const el = document.getElementById('user-count');
+        if (el) el.innerText = 100 + Math.floor(Math.random() * 50);
+        setTimeout(updateOnlineCounter, 8000);
+    }
+
+    renderGrid();
+    initPalpites();
+    updateOnlineCounter();
+    updateClock();
+</script>
+</body>
+</html>
