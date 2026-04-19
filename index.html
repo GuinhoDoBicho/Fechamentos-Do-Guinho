@@ -18,8 +18,8 @@
             --bichostar: #1e3799;
         }
 
-        body { font-family: 'Segoe UI', sans-serif; background-color: #e9ecef; margin: 0; padding: 10px; display: flex; justify-content: center; }
-        .main-card { background: white; width: 100%; max-width: 600px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #e9ecef; margin: 0; padding: 10px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        .main-card { background: white; width: 100%; max-width: 600px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; margin-bottom: 20px; }
         .header { background: var(--primary); color: white; padding: 15px; text-align: center; border-bottom: 4px solid var(--gold); }
         .header h1 { margin: 0; font-size: 1.5rem; }
         
@@ -82,6 +82,9 @@
         #results-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; margin-top: 20px; }
         .ticket { background: #fff; border: 1px solid #dee2e6; padding: 10px; text-align: center; border-radius: 8px; font-family: monospace; font-weight: bold; font-size: 1.1rem; }
         .ticket.ganhador { background: var(--win-blue) !important; color: white !important; }
+
+        /* ESTILO DO RODAPÉ */
+        .footer { width: 100%; max-width: 600px; text-align: center; padding: 15px 0; color: var(--primary); font-size: 0.85rem; font-weight: bold; border-top: 1px solid #ccc; margin-top: auto; }
     </style>
 </head>
 <body>
@@ -172,6 +175,10 @@
         <div id="results-container"></div>
     </div>
 </div>
+
+<footer class="footer">
+    Criado por Guinho Do Bicho © 2026
+</footer>
 
 <script>
     let selectedNumbers = [];
