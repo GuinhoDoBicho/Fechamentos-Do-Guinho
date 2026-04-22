@@ -16,37 +16,14 @@
             --gold: #f1c40f;
             --mercadopago: #009ee3;
             --bichostar: #1e3799;
-            /* Cores Dinâmicas */
-            --bg-body: #e9ecef;
-            --bg-card: #ffffff;
-            --text-main: #2c3e50;
-            --input-bg: #ffffff;
-            --border-color: #ddd;
+            --fixed: #e67e22;
         }
 
-        [data-theme="dark"] {
-            --bg-body: #121212;
-            --bg-card: #1e1e1e;
-            --text-main: #e0e0e0;
-            --light: #2d2d2d;
-            --input-bg: #333333;
-            --border-color: #444;
-        }
-
-        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-body); color: var(--text-main); margin: 0; padding: 10px; display: flex; justify-content: center; transition: 0.3s; }
-        .main-card { background: var(--bg-card); width: 100%; max-width: 600px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; }
-        
-        .header { background: var(--primary); color: white; padding: 15px; text-align: center; border-bottom: 4px solid var(--gold); position: relative; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #e9ecef; margin: 0; padding: 10px; display: flex; justify-content: center; }
+        .main-card { background: white; width: 100%; max-width: 600px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: var(--primary); color: white; padding: 15px; text-align: center; border-bottom: 4px solid var(--gold); }
         .header h1 { margin: 0; font-size: 1.5rem; }
         
-        /* Botão Sol/Lua */
-        .theme-btn {
-            position: absolute; right: 10px; top: 10px;
-            background: rgba(255,255,255,0.1); border: 1px solid var(--gold);
-            color: var(--gold); border-radius: 50%; width: 35px; height: 35px;
-            cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center;
-        }
-
         .online-counter { font-size: 0.75rem; color: #a5d6a7; margin-top: 5px; display: flex; align-items: center; justify-content: center; gap: 5px; }
         .dot { height: 8px; width: 8px; background-color: #2ecc71; border-radius: 50%; display: inline-block; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
@@ -82,30 +59,29 @@
         .milhar-item { display: block; letter-spacing: 0.5px; }
 
         .puxada-panel { background: #fff3cd; border: 1px solid #ffeeba; padding: 10px; border-radius: 10px; margin-bottom: 15px; }
-        [data-theme="dark"] .puxada-panel { background: #332b00; border-color: #665500; }
-        .puxada-panel select { background: var(--input-bg); color: var(--text-main); margin-top: 5px; width: 100%; padding: 8px; border-radius: 5px; border: 1px solid var(--border-color); }
+        .puxada-panel select { background: white; margin-top: 5px; width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; }
         #puxada-resultado { font-weight: bold; color: #856404; margin-top: 8px; font-size: 0.9rem; text-align: center; }
-        [data-theme="dark"] #puxada-resultado { color: #ffeeba; }
 
         .number-grid { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; margin-bottom: 15px; }
         .num-btn { 
-            width: 45px; height: 45px; border: 2px solid var(--border-color); border-radius: 8px; 
-            background: var(--input-bg); color: var(--text-main); font-size: 1.1rem; font-weight: bold; cursor: pointer; 
+            width: 45px; height: 45px; border: 2px solid #ddd; border-radius: 8px; 
+            background: white; font-size: 1.1rem; font-weight: bold; cursor: pointer; 
         }
         .num-btn.active { background: var(--secondary); color: white; border-color: var(--secondary); }
+        .num-btn.fixed { background: var(--fixed); color: white; border-color: #d35400; }
 
         .panel { background: var(--light); padding: 12px; border-radius: 10px; display: flex; flex-direction: column; gap: 10px; }
-        select, input, button.main-btn { padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 1rem; width: 100%; box-sizing: border-box; background: var(--input-bg); color: var(--text-main); }
+        select, input, button.main-btn { padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 1rem; width: 100%; box-sizing: border-box; }
         button.main-btn { background: var(--success); color: white; border: none; font-weight: bold; cursor: pointer; }
-        button.main-btn:disabled { background: #bdc3c7; color: #666; }
+        button.main-btn:disabled { background: #bdc3c7; }
         
         .action-buttons { display: none; flex-direction: column; gap: 8px; margin-top: 10px; }
-        .btn-whatsapp { background: var(--whatsapp); color: white !important; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .btn-copy { background: #6c757d; color: white !important; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .btn-clear { background: var(--danger); color: white !important; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 5px; font-size: 0.9rem; width: 100%; }
+        .btn-whatsapp { background: var(--whatsapp); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-copy { background: #6c757d; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-clear { background: var(--danger); color: white; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 5px; font-size: 0.9rem; width: 100%; }
 
         #results-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; margin-top: 20px; }
-        .ticket { background: var(--input-bg); border: 1px solid var(--border-color); padding: 10px; text-align: center; border-radius: 8px; font-family: monospace; font-weight: bold; font-size: 1.1rem; }
+        .ticket { background: #fff; border: 1px solid #dee2e6; padding: 10px; text-align: center; border-radius: 8px; font-family: monospace; font-weight: bold; font-size: 1.1rem; }
         .ticket.ganhador { background: var(--win-blue) !important; color: white !important; }
     </style>
 </head>
@@ -113,7 +89,6 @@
 
 <div class="main-card">
     <div class="header">
-        <button class="theme-btn" onclick="toggleTheme()" id="themeIcon">🌗</button>
         <h1>Fechamentos Do Guinho</h1>
         <div class="online-counter">
             <span class="dot"></span> <span id="user-count">Carregando...</span> pessoas online agora
@@ -179,6 +154,8 @@
                 <option value="3-7">Centena Invertida (7 dezenas -> 35 jogos)</option>
                 <option value="4-7">Milhar Invertida (7 dezenas -> 35 jogos)</option>
                 <option value="4-8">Milhar Invertida (8 dezenas -> 70 jogos)</option>
+                <option value="4F-7">Milhar Invertida (1 Fixa + 7 dezenas -> 35 jogos)</option>
+                <option value="4F-8">Milhar Invertida (1 Fixa + 8 dezenas -> 56 jogos)</option>
                 <option value="TG-7">Terno de Grupo (7 grupos -> 35 jogos)</option>
                 <option value="TG-8">Terno de Grupo (8 grupos -> 56 jogos)</option>
             </select>
@@ -200,25 +177,8 @@
 </div>
 
 <script>
-    // FUNÇÃO DE TEMA CORRIGIDA
-    function toggleTheme() {
-        const body = document.body;
-        const isDark = body.getAttribute('data-theme') === 'dark';
-        if (isDark) {
-            body.removeAttribute('data-theme');
-            localStorage.setItem('theme', 'light');
-        } else {
-            body.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-        }
-    }
-
-    // Inicializar Tema
-    if (localStorage.getItem('theme') === 'dark') {
-        document.body.setAttribute('data-theme', 'dark');
-    }
-
     let selectedNumbers = [];
+    let fixedNumber = null;
     let currentGames = [];
 
     const bichosInfo = [
@@ -242,6 +202,7 @@
         grid.innerHTML = '';
         const mode = document.getElementById('mode').value;
         const isTerno = mode.startsWith('TG');
+        const isFixedMode = mode.includes('F');
         const start = isTerno ? 1 : 0;
         const max = isTerno ? 25 : 9;
 
@@ -250,14 +211,23 @@
             btn.innerText = i;
             btn.className = 'num-btn';
             btn.onclick = () => {
-                const idx = selectedNumbers.indexOf(i);
-                const nReq = parseInt(mode.split('-')[1]);
-                if (idx > -1) { 
-                    selectedNumbers.splice(idx, 1); 
-                    btn.classList.remove('active'); 
-                } else if (selectedNumbers.length < nReq) { 
-                    selectedNumbers.push(i); 
-                    btn.classList.add('active'); 
+                if (isFixedMode && fixedNumber === null && !selectedNumbers.includes(i)) {
+                    fixedNumber = i;
+                    btn.classList.add('fixed');
+                } else {
+                    const idx = selectedNumbers.indexOf(i);
+                    const nReq = parseInt(mode.split('-')[1]);
+                    
+                    if (idx > -1) { 
+                        selectedNumbers.splice(idx, 1); 
+                        btn.classList.remove('active'); 
+                    } else if (i === fixedNumber) {
+                        fixedNumber = null;
+                        btn.classList.remove('fixed');
+                    } else if (selectedNumbers.length < nReq) { 
+                        selectedNumbers.push(i); 
+                        btn.classList.add('active'); 
+                    }
                 }
                 updateStatus();
             };
@@ -268,21 +238,47 @@
     function updateStatus() {
         const mode = document.getElementById('mode').value;
         const nReq = parseInt(mode.split('-')[1]);
+        const isFixedMode = mode.includes('F');
         const label = mode.startsWith('TG') ? 'Grupos' : 'Números';
-        document.getElementById('status-text').innerText = `${label} Selecionados: ${selectedNumbers.length} / ${nReq}`;
-        document.getElementById('generateBtn').disabled = selectedNumbers.length !== nReq;
+        
+        if (isFixedMode) {
+            const fixaStatus = fixedNumber !== null ? '1 Fixa OK' : 'Selecione a FIXA';
+            document.getElementById('status-text').innerText = `${fixaStatus} + ${selectedNumbers.length}/${nReq} Variáveis`;
+            document.getElementById('generateBtn').disabled = !(fixedNumber !== null && selectedNumbers.length === nReq);
+        } else {
+            document.getElementById('status-text').innerText = `${label} Selecionados: ${selectedNumbers.length} / ${nReq}`;
+            document.getElementById('generateBtn').disabled = selectedNumbers.length !== nReq;
+        }
     }
 
     function generate() {
         const mode = document.getElementById('mode').value;
-        const k = mode.startsWith('TG') ? 3 : parseInt(mode.split('-')[0]);
-        const sorted = [...selectedNumbers].sort((a, b) => a - b);
         currentGames = [];
-        function combine(start, combo) {
-            if (combo.length === k) { currentGames.push([...combo]); return; }
-            for (let i = start; i < sorted.length; i++) { combo.push(sorted[i]); combine(i + 1, combo); combo.pop(); }
+        const sorted = [...selectedNumbers].sort((a, b) => a - b);
+
+        if (mode.includes('F')) {
+            // Lógica para 1 fixa + N variáveis (combina 3 das variáveis + a fixa)
+            function combine(start, combo) {
+                if (combo.length === 3) { 
+                    currentGames.push([fixedNumber, ...combo].sort((a,b) => a-b)); 
+                    return; 
+                }
+                for (let i = start; i < sorted.length; i++) {
+                    combo.push(sorted[i]);
+                    combine(i + 1, combo);
+                    combo.pop();
+                }
+            }
+            combine(0, []);
+        } else {
+            const k = mode.startsWith('TG') ? 3 : parseInt(mode.split('-')[0]);
+            function combineGeneric(start, combo) {
+                if (combo.length === k) { currentGames.push([...combo]); return; }
+                for (let i = start; i < sorted.length; i++) { combo.push(sorted[i]); combineGeneric(i + 1, combo); combo.pop(); }
+            }
+            combineGeneric(0, []);
         }
-        combine(0, []);
+
         const prefix = mode.startsWith('TG') ? 'Gr.' : '';
         document.getElementById('results-container').innerHTML = currentGames.map((g, i) => `<div class="ticket" id="game-${i}"><small>#${i+1}</small><br>${g.map(n => prefix + n).join('-')}</div>`).join('');
         document.getElementById('actionPanel').style.display = 'flex';
@@ -290,8 +286,10 @@
 
     function updateClock() {
         const now = new Date();
-        document.getElementById('current-date').innerText = now.toLocaleDateString('pt-BR');
-        document.getElementById('clock').innerText = now.toLocaleTimeString('pt-BR');
+        const dateEl = document.getElementById('current-date');
+        const clockEl = document.getElementById('clock');
+        if(dateEl) dateEl.innerText = now.toLocaleDateString('pt-BR');
+        if(clockEl) clockEl.innerText = now.toLocaleTimeString('pt-BR');
     }
     setInterval(updateClock, 1000);
 
@@ -306,8 +304,8 @@
         const draw = drawInput.split(/[,.-]/).map(n => parseInt(n.trim())).filter(n => !isNaN(n));
         currentGames.forEach((game, i) => {
             const hits = game.filter(num => draw.includes(num)).length;
-            const el = document.getElementById(`game-${i}`);
-            if (el) el.className = (hits >= game.length && draw.length >= game.length) ? 'ticket ganhador' : 'ticket';
+            const card = document.getElementById(`game-${i}`);
+            if(card) card.className = (hits >= game.length && draw.length >= game.length) ? 'ticket ganhador' : 'ticket';
         });
     }
 
@@ -317,6 +315,7 @@
         let random = seed;
         function getNext() { random = (random * 9301 + 49297) % 233280; return random / 233280; }
         const container = document.getElementById('palpites-container');
+        if(!container) return;
         container.innerHTML = "";
         let indices = Array.from({length: 25}, (_, i) => i);
         let selecionados = [];
@@ -333,8 +332,13 @@
     }
 
     function clearAll() {
-        selectedNumbers = []; currentGames = [];
-        document.querySelectorAll('.num-btn').forEach(b => b.classList.remove('active'));
+        selectedNumbers = []; 
+        fixedNumber = null;
+        currentGames = [];
+        document.querySelectorAll('.num-btn').forEach(b => {
+            b.classList.remove('active');
+            b.classList.remove('fixed');
+        });
         document.getElementById('results-container').innerHTML = '';
         document.getElementById('actionPanel').style.display = 'none';
         document.getElementById('drawResult').value = '';
@@ -353,7 +357,7 @@
 
     function updateOnlineCounter() {
         const el = document.getElementById('user-count');
-        if (el) el.innerText = 100 + Math.floor(Math.random() * 50);
+        if(el) el.innerText = 100 + Math.floor(Math.random() * 50);
         setTimeout(updateOnlineCounter, 8000);
     }
 
