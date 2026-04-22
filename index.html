@@ -152,6 +152,9 @@
                 <option value="2-8">Dezena Invertida (8 dezenas -> 28 jogos)</option>
                 <option value="3-6">Centena Invertida (6 dezenas -> 20 jogos)</option>
                 <option value="3-7">Centena Invertida (7 dezenas -> 35 jogos)</option>
+                <option value="3-8">Centena Invertida (8 dezenas -> 56 jogos)</option>
+                <option value="3F-7">Centena Invertida (1 Fixa + 7 dezenas -> 21 jogos)</option>
+                <option value="3F-8">Centena Invertida (1 Fixa + 8 dezenas -> 28 jogos)</option>
                 <option value="4-7">Milhar Invertida (7 dezenas -> 35 jogos)</option>
                 <option value="4-8">Milhar Invertida (8 dezenas -> 70 jogos)</option>
                 <option value="4F-7">Milhar Invertida (1 Fixa + 7 dezenas -> 35 jogos)</option>
@@ -257,9 +260,11 @@
         const sorted = [...selectedNumbers].sort((a, b) => a - b);
 
         if (mode.includes('F')) {
-            // Lógica para 1 fixa + N variáveis (combina 3 das variáveis + a fixa)
+            const isMilhar = mode.startsWith('4');
+            const targetSize = isMilhar ? 3 : 2; 
+            
             function combine(start, combo) {
-                if (combo.length === 3) { 
+                if (combo.length === targetSize) { 
                     currentGames.push([fixedNumber, ...combo].sort((a,b) => a-b)); 
                     return; 
                 }
