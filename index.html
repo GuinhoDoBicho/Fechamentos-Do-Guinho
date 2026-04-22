@@ -30,7 +30,6 @@
 
         .content { padding: 15px; }
         
-        /* SEÇÃO DE BOTÕES DE APOIO E CADASTRO */
         .action-links { display: flex; flex-direction: column; gap: 10px; align-items: center; margin-bottom: 20px; }
         .btn-link { 
             text-decoration: none; padding: 12px 20px; border-radius: 50px; 
@@ -39,17 +38,12 @@
             width: 90%; justify-content: center; transition: transform 0.2s;
         }
         .btn-link:active { transform: scale(0.98); }
-        
-        /* ANIMAÇÃO DO BOTÃO DE DOAÇÃO */
-        .btn-donate { 
-            background: var(--mercadopago); 
-            color: white; 
-            animation: shake-donate 3s cubic-bezier(.36,.07,.19,.97) infinite;
-            transform: translate3d(0, 0, 0);
-            backface-visibility: hidden;
-            perspective: 1000px;
-        }
 
+        /* BOTÃO DE DOAÇÃO ANIMADO */
+        .btn-donate { 
+            background: var(--mercadopago); color: white; 
+            animation: shake-donate 3s cubic-bezier(.36,.07,.19,.97) infinite;
+        }
         @keyframes shake-donate {
             10%, 90% { transform: translate3d(-1px, 0, 0); }
             20%, 80% { transform: translate3d(2px, 0, 0); }
@@ -60,6 +54,23 @@
         }
 
         .btn-banca { background: var(--bichostar); color: white; border: 2px solid var(--gold); }
+
+        /* NOVA SEÇÃO DE RESULTADOS VIA LINKS */
+        .results-section {
+            background: #fff; border: 2px solid #ddd; border-radius: 10px;
+            padding: 15px; margin-bottom: 20px; text-align: center;
+        }
+        .results-section h3 { margin-top: 0; font-size: 0.9rem; color: var(--primary); margin-bottom: 12px; }
+        .btn-result {
+            display: flex; align-items: center; justify-content: space-between;
+            text-decoration: none; background: #f8f9fa; border: 1px solid #ddd;
+            padding: 12px 15px; border-radius: 8px; margin-bottom: 8px;
+            color: var(--primary); font-weight: bold; font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+        .btn-result:hover { background: #e9ecef; }
+        .btn-result i { font-size: 0.7rem; color: #999; }
+        .badge-link { background: var(--secondary); color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.6rem; }
 
         .suggestions-panel { 
             background: linear-gradient(135deg, #2c3e50, #4ca1af); 
@@ -83,10 +94,7 @@
         #puxada-resultado { font-weight: bold; color: #856404; margin-top: 8px; font-size: 0.9rem; text-align: center; }
 
         .number-grid { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; margin-bottom: 15px; }
-        .num-btn { 
-            width: 45px; height: 45px; border: 2px solid #ddd; border-radius: 8px; 
-            background: white; font-size: 1.1rem; font-weight: bold; cursor: pointer; 
-        }
+        .num-btn { width: 45px; height: 45px; border: 2px solid #ddd; border-radius: 8px; background: white; font-size: 1.1rem; font-weight: bold; cursor: pointer; }
         .num-btn.active { background: var(--secondary); color: white; border-color: var(--secondary); }
         .num-btn.fixed { background: var(--fixed); color: white; border-color: #d35400; }
 
@@ -128,6 +136,19 @@
             </div>
             <h3 style="font-size:0.75rem; margin: 5px 0;">✨ GRUPOS E MILHARES DO DIA</h3>
             <div id="palpites-container" class="suggestion-container"></div>
+        </div>
+
+        <div class="results-section">
+            <h3>📊 CONFERIR RESULTADOS DE HOJE:</h3>
+            <a href="https://bichocerto.com/resultados/rj/para-todos/" target="_blank" class="btn-result">
+                RIO (PT / PTM / FED) <span class="badge-link">VER AGORA</span>
+            </a>
+            <a href="https://bichocerto.com/resultados/lk/look/" target="_blank" class="btn-result">
+                LOOK LOTERIAS <span class="badge-link">VER AGORA</span>
+            </a>
+            <a href="https://bichocerto.com/resultados/ln/loteria-nacional/" target="_blank" class="btn-result">
+                LOTERIA NACIONAL <span class="badge-link">VER AGORA</span>
+            </a>
         </div>
 
         <div class="puxada-panel">
@@ -235,22 +256,13 @@
             btn.className = 'num-btn';
             btn.onclick = () => {
                 if (isFixedMode && fixedNumber === null && !selectedNumbers.includes(i)) {
-                    fixedNumber = i;
-                    btn.classList.add('fixed');
+                    fixedNumber = i; btn.classList.add('fixed');
                 } else {
                     const idx = selectedNumbers.indexOf(i);
                     const nReq = parseInt(mode.split('-')[1]);
-                    
-                    if (idx > -1) { 
-                        selectedNumbers.splice(idx, 1); 
-                        btn.classList.remove('active'); 
-                    } else if (i === fixedNumber) {
-                        fixedNumber = null;
-                        btn.classList.remove('fixed');
-                    } else if (selectedNumbers.length < nReq) { 
-                        selectedNumbers.push(i); 
-                        btn.classList.add('active'); 
-                    }
+                    if (idx > -1) { selectedNumbers.splice(idx, 1); btn.classList.remove('active'); }
+                    else if (i === fixedNumber) { fixedNumber = null; btn.classList.remove('fixed'); }
+                    else if (selectedNumbers.length < nReq) { selectedNumbers.push(i); btn.classList.add('active'); }
                 }
                 updateStatus();
             };
@@ -262,14 +274,12 @@
         const mode = document.getElementById('mode').value;
         const nReq = parseInt(mode.split('-')[1]);
         const isFixedMode = mode.includes('F');
-        const label = mode.startsWith('TG') ? 'Grupos' : 'Números';
-        
         if (isFixedMode) {
             const fixaStatus = fixedNumber !== null ? '1 Fixa OK' : 'Selecione a FIXA';
             document.getElementById('status-text').innerText = `${fixaStatus} + ${selectedNumbers.length}/${nReq} Variáveis`;
             document.getElementById('generateBtn').disabled = !(fixedNumber !== null && selectedNumbers.length === nReq);
         } else {
-            document.getElementById('status-text').innerText = `${label} Selecionados: ${selectedNumbers.length} / ${nReq}`;
+            document.getElementById('status-text').innerText = `Selecionados: ${selectedNumbers.length} / ${nReq}`;
             document.getElementById('generateBtn').disabled = selectedNumbers.length !== nReq;
         }
     }
@@ -278,21 +288,11 @@
         const mode = document.getElementById('mode').value;
         currentGames = [];
         const sorted = [...selectedNumbers].sort((a, b) => a - b);
-
         if (mode.includes('F')) {
-            const isMilhar = mode.startsWith('4');
-            const targetSize = isMilhar ? 3 : 2; 
-            
+            const targetSize = mode.startsWith('4') ? 3 : 2;
             function combine(start, combo) {
-                if (combo.length === targetSize) { 
-                    currentGames.push([fixedNumber, ...combo].sort((a,b) => a-b)); 
-                    return; 
-                }
-                for (let i = start; i < sorted.length; i++) {
-                    combo.push(sorted[i]);
-                    combine(i + 1, combo);
-                    combo.pop();
-                }
+                if (combo.length === targetSize) { currentGames.push([fixedNumber, ...combo].sort((a,b) => a-b)); return; }
+                for (let i = start; i < sorted.length; i++) { combo.push(sorted[i]); combine(i + 1, combo); combo.pop(); }
             }
             combine(0, []);
         } else {
@@ -303,7 +303,6 @@
             }
             combineGeneric(0, []);
         }
-
         const prefix = mode.startsWith('TG') ? 'Gr.' : '';
         document.getElementById('results-container').innerHTML = currentGames.map((g, i) => `<div class="ticket" id="game-${i}"><small>#${i+1}</small><br>${g.map(n => prefix + n).join('-')}</div>`).join('');
         document.getElementById('actionPanel').style.display = 'flex';
@@ -311,10 +310,8 @@
 
     function updateClock() {
         const now = new Date();
-        const dateEl = document.getElementById('current-date');
-        const clockEl = document.getElementById('clock');
-        if(dateEl) dateEl.innerText = now.toLocaleDateString('pt-BR');
-        if(clockEl) clockEl.innerText = now.toLocaleTimeString('pt-BR');
+        document.getElementById('current-date').innerText = now.toLocaleDateString('pt-BR');
+        document.getElementById('clock').innerText = now.toLocaleTimeString('pt-BR');
     }
     setInterval(updateClock, 1000);
 
@@ -325,12 +322,10 @@
     }
 
     function checkGames() {
-        const drawInput = document.getElementById('drawResult').value;
-        const draw = drawInput.split(/[,.-]/).map(n => parseInt(n.trim())).filter(n => !isNaN(n));
+        const draw = document.getElementById('drawResult').value.split(/[,.-]/).map(n => parseInt(n.trim())).filter(n => !isNaN(n));
         currentGames.forEach((game, i) => {
             const hits = game.filter(num => draw.includes(num)).length;
-            const card = document.getElementById(`game-${i}`);
-            if(card) card.className = (hits >= game.length && draw.length >= game.length) ? 'ticket ganhador' : 'ticket';
+            document.getElementById(`game-${i}`).className = (hits >= game.length && draw.length >= game.length) ? 'ticket ganhador' : 'ticket';
         });
     }
 
@@ -340,7 +335,6 @@
         let random = seed;
         function getNext() { random = (random * 9301 + 49297) % 233280; return random / 233280; }
         const container = document.getElementById('palpites-container');
-        if(!container) return;
         container.innerHTML = "";
         let indices = Array.from({length: 25}, (_, i) => i);
         let selecionados = [];
@@ -357,13 +351,8 @@
     }
 
     function clearAll() {
-        selectedNumbers = []; 
-        fixedNumber = null;
-        currentGames = [];
-        document.querySelectorAll('.num-btn').forEach(b => {
-            b.classList.remove('active');
-            b.classList.remove('fixed');
-        });
+        selectedNumbers = []; fixedNumber = null; currentGames = [];
+        document.querySelectorAll('.num-btn').forEach(b => { b.classList.remove('active'); b.classList.remove('fixed'); });
         document.getElementById('results-container').innerHTML = '';
         document.getElementById('actionPanel').style.display = 'none';
         document.getElementById('drawResult').value = '';
@@ -381,8 +370,7 @@
     }
 
     function updateOnlineCounter() {
-        const el = document.getElementById('user-count');
-        if(el) el.innerText = 100 + Math.floor(Math.random() * 50);
+        document.getElementById('user-count').innerText = 100 + Math.floor(Math.random() * 50);
         setTimeout(updateOnlineCounter, 8000);
     }
 
