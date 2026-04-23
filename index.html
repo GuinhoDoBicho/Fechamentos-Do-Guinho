@@ -198,10 +198,12 @@
                 <option value="3-8">Centena Invertida (8 dezenas -> 56 jogos)</option>
                 <option value="3F-7">Centena Invertida (1 Fixa + 7 Variáveis -> 21 jogos)</option>
                 <option value="3F-8">Centena Invertida (1 Fixa + 8 Variáveis -> 28 jogos)</option>
+                <option value="3F-9">Centena Invertida (1 Fixa + 9 Variáveis -> 36 jogos)</option>
                 <option value="4-7">Milhar Invertida (7 dezenas -> 35 jogos)</option>
                 <option value="4-8">Milhar Invertida (8 dezenas -> 70 jogos)</option>
                 <option value="4F-7">Milhar Invertida (1 Fixa + 7 Variáveis -> 35 jogos)</option>
                 <option value="4F-8">Milhar Invertida (1 Fixa + 8 Variáveis -> 56 jogos)</option>
+                <option value="4F-9">Milhar Invertida (1 Fixa + 9 Variáveis -> 84 jogos)</option>
                 <option value="TG-7">Terno de Grupo (7 grupos -> 35 jogos)</option>
                 <option value="TG-8">Terno de Grupo (8 grupos -> 56 jogos)</option>
             </select>
@@ -249,7 +251,6 @@
         const mode = document.getElementById('mode').value;
         const isTerno = mode.startsWith('TG');
         const isFixedMode = mode.includes('F');
-        
         const start = isTerno ? 1 : 0;
         const max = isTerno ? 25 : 9;
 
@@ -259,22 +260,13 @@
             btn.className = 'num-btn';
             btn.onclick = () => {
                 if (isFixedMode && fixedNumber === null && !selectedNumbers.includes(i)) {
-                    fixedNumber = i; 
-                    btn.classList.add('fixed');
+                    fixedNumber = i; btn.classList.add('fixed');
                 } else {
                     const idx = selectedNumbers.indexOf(i);
                     const nReq = parseInt(mode.split('-')[1]);
-                    
-                    if (idx > -1) { 
-                        selectedNumbers.splice(idx, 1); 
-                        btn.classList.remove('active'); 
-                    } else if (i === fixedNumber) { 
-                        fixedNumber = null; 
-                        btn.classList.remove('fixed'); 
-                    } else if (selectedNumbers.length < nReq) { 
-                        selectedNumbers.push(i); 
-                        btn.classList.add('active'); 
-                    }
+                    if (idx > -1) { selectedNumbers.splice(idx, 1); btn.classList.remove('active'); }
+                    else if (i === fixedNumber) { fixedNumber = null; btn.classList.remove('fixed'); }
+                    else if (selectedNumbers.length < nReq) { selectedNumbers.push(i); btn.classList.add('active'); }
                 }
                 updateStatus();
             };
@@ -286,7 +278,6 @@
         const mode = document.getElementById('mode').value;
         const nReq = parseInt(mode.split('-')[1]);
         const isFixedMode = mode.includes('F');
-
         if (isFixedMode) {
             const fixaStatus = fixedNumber !== null ? '1 Fixa OK' : 'Selecione a FIXA';
             document.getElementById('status-text').innerText = `${fixaStatus} + ${selectedNumbers.length}/${nReq} Variáveis`;
@@ -301,48 +292,25 @@
         const mode = document.getElementById('mode').value;
         currentGames = [];
         const sorted = [...selectedNumbers].sort((a, b) => a - b);
-
         if (mode.includes('F')) {
-            // Se for Milhar (começa com 4), precisa de 3 variáveis para completar 4. 
-            // Se for Centena (começa com 3), precisa de 2 variáveis para completar 3.
-            const targetSize = mode.startsWith('4') ? 3 : 2; 
-
+            const targetSize = mode.startsWith('4') ? 3 : 2;
             function combine(start, combo) {
-                if (combo.length === targetSize) {
-                    currentGames.push([fixedNumber, ...combo].sort((a,b) => a-b));
-                    return;
-                }
-                for (let i = start; i < sorted.length; i++) {
-                    combo.push(sorted[i]);
-                    combine(i + 1, combo);
-                    combo.pop();
-                }
+                if (combo.length === targetSize) { currentGames.push([fixedNumber, ...combo].sort((a,b) => a-b)); return; }
+                for (let i = start; i < sorted.length; i++) { combo.push(sorted[i]); combine(i + 1, combo); combo.pop(); }
             }
             combine(0, []);
         } else {
             const k = mode.startsWith('TG') ? 3 : parseInt(mode.split('-')[0]);
             function combineGeneric(start, combo) {
-                if (combo.length === k) {
-                    currentGames.push([...combo]);
-                    return;
-                }
-                for (let i = start; i < sorted.length; i++) {
-                    combo.push(sorted[i]);
-                    combineGeneric(i + 1, combo);
-                    combo.pop();
-                }
+                if (combo.length === k) { currentGames.push([...combo]); return; }
+                for (let i = start; i < sorted.length; i++) { combo.push(sorted[i]); combineGeneric(i + 1, combo); combo.pop(); }
             }
             combineGeneric(0, []);
         }
-
         const prefix = mode.startsWith('TG') ? 'Gr.' : '';
-        document.getElementById('results-container').innerHTML = currentGames.map((g, i) => 
-            `<div class="ticket" id="game-${i}"><small>#${i+1}</small><br>${g.map(n => prefix + n).join('-')}</div>`
-        ).join('');
+        document.getElementById('results-container').innerHTML = currentGames.map((g, i) => `<div class="ticket" id="game-${i}"><small>#${i+1}</small><br>${g.map(n => prefix + n).join('-')}</div>`).join('');
         document.getElementById('actionPanel').style.display = 'flex';
     }
-
-    // --- FUNÇÕES DE UTILIDADE MANTIDAS ---
 
     function updateClock() {
         const now = new Date();
@@ -370,7 +338,6 @@
         const seed = data.getDate() + (data.getMonth() + 1) * 31 + data.getFullYear();
         let random = seed;
         function getNext() { random = (random * 9301 + 49297) % 233280; return random / 233280; }
-
         const container = document.getElementById('palpites-container');
         container.innerHTML = "";
         let indices = Array.from({length: 25}, (_, i) => i);
@@ -379,7 +346,6 @@
             const idx = Math.floor(getNext() * indices.length);
             selecionados.push(bichosInfo[indices.splice(idx, 1)[0]]);
         }
-
         selecionados.forEach(bicho => {
             const gNum = parseInt(bicho.n);
             const dezenasBase = [(gNum*4).toString().padStart(2,'0').replace('100','00'), (gNum*4-1).toString().padStart(2,'0'), (gNum*4-2).toString().padStart(2,'0'), (gNum*4-3).toString().padStart(2,'0')];
@@ -412,7 +378,6 @@
         setTimeout(updateOnlineCounter, 8000);
     }
 
-    // Inicialização
     renderGrid();
     initPalpites();
     updateOnlineCounter();
