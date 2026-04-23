@@ -18,7 +18,6 @@
             --bichostar: #1e3799;
             --fixed: #e67e22;
         }
-
         body { font-family: 'Segoe UI', sans-serif; background-color: #e9ecef; margin: 0; padding: 10px; display: flex; justify-content: center; }
         .main-card { background: white; width: 100%; max-width: 600px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; }
         .header { background: var(--primary); color: white; padding: 15px; text-align: center; border-bottom: 4px solid var(--gold); }
@@ -27,7 +26,6 @@
         .online-counter { font-size: 0.75rem; color: #a5d6a7; margin-top: 5px; display: flex; align-items: center; justify-content: center; gap: 5px; }
         .dot { height: 8px; width: 8px; background-color: #2ecc71; border-radius: 50%; display: inline-block; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
-
         .content { padding: 15px; }
         
         .action-links { display: flex; flex-direction: column; gap: 10px; align-items: center; margin-bottom: 20px; }
@@ -35,31 +33,28 @@
             text-decoration: none; padding: 12px 20px; border-radius: 50px; 
             font-weight: bold; font-size: 0.85rem; display: inline-flex; 
             align-items: center; gap: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
-            width: 90%; justify-content: center; transition: transform 0.2s;
+            width: 90%; justify-content: center; transition: transform 0.2s; 
         }
         .btn-link:active { transform: scale(0.98); }
-
-        /* BOTÃO DE DOAÇÃO ANIMADO */
+        
         .btn-donate { 
             background: var(--mercadopago); color: white; 
-            animation: shake-donate 3s cubic-bezier(.36,.07,.19,.97) infinite;
+            animation: shake-donate 3s cubic-bezier(.36,.07,.19,.97) infinite; 
         }
-        @keyframes shake-donate {
-            10%, 90% { transform: translate3d(-1px, 0, 0); }
-            20%, 80% { transform: translate3d(2px, 0, 0); }
-            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-            40%, 60% { transform: translate3d(4px, 0, 0); }
-            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 158, 227, 0.7); }
-            50% { box-shadow: 0 0 0 10px rgba(0, 158, 227, 0); }
+        @keyframes shake-donate { 
+            10%, 90% { transform: translate3d(-1px, 0, 0); } 
+            20%, 80% { transform: translate3d(2px, 0, 0); } 
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 
+            40%, 60% { transform: translate3d(4px, 0, 0); } 
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 158, 227, 0.7); } 
+            50% { box-shadow: 0 0 0 10px rgba(0, 158, 227, 0); } 
         }
-
         .btn-banca { background: var(--bichostar); color: white; border: 2px solid var(--gold); }
-
-        /* PAINEL DE PALPITES COM ANIMAÇÃO NOS BICHOS */
+        
         .suggestions-panel { 
             background: linear-gradient(135deg, #2c3e50, #4ca1af); 
             color: white; padding: 15px 10px; border-radius: 10px; margin-bottom: 20px; 
-            text-align: center; border: 2px solid var(--gold);
+            text-align: center; border: 2px solid var(--gold); 
         }
         
         .datetime-container { background: rgba(0,0,0,0.2); display: inline-block; padding: 8px 20px; border-radius: 15px; margin-bottom: 10px; }
@@ -69,47 +64,44 @@
         .suggestion-container { display: flex; justify-content: space-around; gap: 8px; margin-top: 10px; overflow-x: auto; padding-bottom: 5px; }
         .group-card { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,215,0,0.3); border-radius: 8px; padding: 8px; flex: 1; min-width: 100px; text-align: center; }
         
-        /* ANIMAÇÃO DOS ANIMAIS */
         .group-icon { 
-            font-size: 2.2rem; display: block; margin-bottom: 5px;
-            animation: bounce-animal 2s ease-in-out infinite;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+            font-size: 2.2rem; display: block; margin-bottom: 5px; 
+            animation: bounce-animal 2s ease-in-out infinite; 
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); 
         }
-        @keyframes bounce-animal {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(5deg); }
+        @keyframes bounce-animal { 
+            0%, 100% { transform: translateY(0) rotate(0deg); } 
+            50% { transform: translateY(-10px) rotate(5deg); } 
         }
         .group-card:nth-child(1) .group-icon { animation-delay: 0s; }
         .group-card:nth-child(2) .group-icon { animation-delay: 0.5s; }
         .group-card:nth-child(3) .group-icon { animation-delay: 1s; }
-
         .group-name { font-weight: bold; color: var(--gold); font-size: 0.75rem; display: block; margin-bottom: 5px; border-bottom: 1px solid rgba(255,255,255,0.2); white-space: nowrap; }
         .milhar-list { font-family: monospace; font-size: 0.85rem; line-height: 1.3; color: #fff; font-weight: bold; }
         .milhar-item { display: block; letter-spacing: 0.5px; }
 
-        /* SEÇÃO DE RESULTADOS AUTOMÁTICOS VIA LINK */
-        .results-section {
-            background: #fff; border: 2px solid #ddd; border-radius: 10px;
-            padding: 15px; margin-bottom: 20px; text-align: center;
+        .results-section { 
+            background: #fff; border: 2px solid #ddd; border-radius: 10px; 
+            padding: 15px; margin-bottom: 20px; text-align: center; 
         }
         .results-section h3 { margin-top: 0; font-size: 0.9rem; color: var(--primary); margin-bottom: 12px; }
-        .btn-result {
-            display: flex; align-items: center; justify-content: space-between;
-            text-decoration: none; background: #f8f9fa; border: 1px solid #ddd;
-            padding: 12px 15px; border-radius: 8px; margin-bottom: 8px;
-            color: var(--primary); font-weight: bold; font-size: 0.85rem;
+        .btn-result { 
+            display: flex; align-items: center; justify-content: space-between; 
+            text-decoration: none; background: #f8f9fa; border: 1px solid #ddd; 
+            padding: 12px 15px; border-radius: 8px; margin-bottom: 8px; 
+            color: var(--primary); font-weight: bold; font-size: 0.85rem; 
         }
         .badge-link { background: var(--secondary); color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.6rem; }
-
+        
         .puxada-panel { background: #fff3cd; border: 1px solid #ffeeba; padding: 10px; border-radius: 10px; margin-bottom: 15px; }
         .puxada-panel select { background: white; margin-top: 5px; width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; }
         #puxada-resultado { font-weight: bold; color: #856404; margin-top: 8px; font-size: 0.9rem; text-align: center; }
-
+        
         .number-grid { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; margin-bottom: 15px; }
         .num-btn { width: 45px; height: 45px; border: 2px solid #ddd; border-radius: 8px; background: white; font-size: 1.1rem; font-weight: bold; cursor: pointer; }
         .num-btn.active { background: var(--secondary); color: white; border-color: var(--secondary); }
         .num-btn.fixed { background: var(--fixed); color: white; border-color: #d35400; }
-
+        
         .panel { background: var(--light); padding: 12px; border-radius: 10px; display: flex; flex-direction: column; gap: 10px; }
         select, input, button.main-btn { padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 1rem; width: 100%; box-sizing: border-box; }
         button.main-btn { background: var(--success); color: white; border: none; font-weight: bold; cursor: pointer; }
@@ -119,14 +111,13 @@
         .btn-whatsapp { background: var(--whatsapp); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .btn-copy { background: #6c757d; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .btn-clear { background: var(--danger); color: white; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 5px; font-size: 0.9rem; width: 100%; }
-
+        
         #results-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; margin-top: 20px; }
         .ticket { background: #fff; border: 1px solid #dee2e6; padding: 10px; text-align: center; border-radius: 8px; font-family: monospace; font-weight: bold; font-size: 1.1rem; }
         .ticket.ganhador { background: var(--win-blue) !important; color: white !important; }
     </style>
 </head>
 <body>
-
 <div class="main-card">
     <div class="header">
         <h1>Fechamentos Do Guinho</h1>
@@ -134,7 +125,6 @@
             <span class="dot"></span> <span id="user-count">Carregando...</span> pessoas online agora
         </div>
     </div>
-
     <div class="content">
         <div class="action-links">
             <a href="https://mpago.la/2Hvokm3" target="_blank" class="btn-link btn-donate">🤝 MANTER SITE ATIVO (DOAÇÃO)</a>
@@ -206,12 +196,12 @@
                 <option value="3-6">Centena Invertida (6 dezenas -> 20 jogos)</option>
                 <option value="3-7">Centena Invertida (7 dezenas -> 35 jogos)</option>
                 <option value="3-8">Centena Invertida (8 dezenas -> 56 jogos)</option>
-                <option value="3F-7">Centena Invertida (1 Fixa + 7 dezenas -> 21 jogos)</option>
-                <option value="3F-8">Centena Invertida (1 Fixa + 8 dezenas -> 28 jogos)</option>
+                <option value="3F-7">Centena Invertida (1 Fixa + 7 Variáveis -> 21 jogos)</option>
+                <option value="3F-8">Centena Invertida (1 Fixa + 8 Variáveis -> 28 jogos)</option>
                 <option value="4-7">Milhar Invertida (7 dezenas -> 35 jogos)</option>
                 <option value="4-8">Milhar Invertida (8 dezenas -> 70 jogos)</option>
-                <option value="4F-7">Milhar Invertida (1 Fixa + 7 dezenas -> 35 jogos)</option>
-                <option value="4F-8">Milhar Invertida (1 Fixa + 8 dezenas -> 56 jogos)</option>
+                <option value="4F-7">Milhar Invertida (1 Fixa + 7 Variáveis -> 35 jogos)</option>
+                <option value="4F-8">Milhar Invertida (1 Fixa + 8 Variáveis -> 56 jogos)</option>
                 <option value="TG-7">Terno de Grupo (7 grupos -> 35 jogos)</option>
                 <option value="TG-8">Terno de Grupo (8 grupos -> 56 jogos)</option>
             </select>
@@ -259,6 +249,7 @@
         const mode = document.getElementById('mode').value;
         const isTerno = mode.startsWith('TG');
         const isFixedMode = mode.includes('F');
+        
         const start = isTerno ? 1 : 0;
         const max = isTerno ? 25 : 9;
 
@@ -268,13 +259,22 @@
             btn.className = 'num-btn';
             btn.onclick = () => {
                 if (isFixedMode && fixedNumber === null && !selectedNumbers.includes(i)) {
-                    fixedNumber = i; btn.classList.add('fixed');
+                    fixedNumber = i; 
+                    btn.classList.add('fixed');
                 } else {
                     const idx = selectedNumbers.indexOf(i);
                     const nReq = parseInt(mode.split('-')[1]);
-                    if (idx > -1) { selectedNumbers.splice(idx, 1); btn.classList.remove('active'); }
-                    else if (i === fixedNumber) { fixedNumber = null; btn.classList.remove('fixed'); }
-                    else if (selectedNumbers.length < nReq) { selectedNumbers.push(i); btn.classList.add('active'); }
+                    
+                    if (idx > -1) { 
+                        selectedNumbers.splice(idx, 1); 
+                        btn.classList.remove('active'); 
+                    } else if (i === fixedNumber) { 
+                        fixedNumber = null; 
+                        btn.classList.remove('fixed'); 
+                    } else if (selectedNumbers.length < nReq) { 
+                        selectedNumbers.push(i); 
+                        btn.classList.add('active'); 
+                    }
                 }
                 updateStatus();
             };
@@ -286,6 +286,7 @@
         const mode = document.getElementById('mode').value;
         const nReq = parseInt(mode.split('-')[1]);
         const isFixedMode = mode.includes('F');
+
         if (isFixedMode) {
             const fixaStatus = fixedNumber !== null ? '1 Fixa OK' : 'Selecione a FIXA';
             document.getElementById('status-text').innerText = `${fixaStatus} + ${selectedNumbers.length}/${nReq} Variáveis`;
@@ -300,25 +301,48 @@
         const mode = document.getElementById('mode').value;
         currentGames = [];
         const sorted = [...selectedNumbers].sort((a, b) => a - b);
+
         if (mode.includes('F')) {
-            const targetSize = mode.startsWith('4') ? 3 : 2;
+            // Se for Milhar (começa com 4), precisa de 3 variáveis para completar 4. 
+            // Se for Centena (começa com 3), precisa de 2 variáveis para completar 3.
+            const targetSize = mode.startsWith('4') ? 3 : 2; 
+
             function combine(start, combo) {
-                if (combo.length === targetSize) { currentGames.push([fixedNumber, ...combo].sort((a,b) => a-b)); return; }
-                for (let i = start; i < sorted.length; i++) { combo.push(sorted[i]); combine(i + 1, combo); combo.pop(); }
+                if (combo.length === targetSize) {
+                    currentGames.push([fixedNumber, ...combo].sort((a,b) => a-b));
+                    return;
+                }
+                for (let i = start; i < sorted.length; i++) {
+                    combo.push(sorted[i]);
+                    combine(i + 1, combo);
+                    combo.pop();
+                }
             }
             combine(0, []);
         } else {
             const k = mode.startsWith('TG') ? 3 : parseInt(mode.split('-')[0]);
             function combineGeneric(start, combo) {
-                if (combo.length === k) { currentGames.push([...combo]); return; }
-                for (let i = start; i < sorted.length; i++) { combo.push(sorted[i]); combineGeneric(i + 1, combo); combo.pop(); }
+                if (combo.length === k) {
+                    currentGames.push([...combo]);
+                    return;
+                }
+                for (let i = start; i < sorted.length; i++) {
+                    combo.push(sorted[i]);
+                    combineGeneric(i + 1, combo);
+                    combo.pop();
+                }
             }
             combineGeneric(0, []);
         }
+
         const prefix = mode.startsWith('TG') ? 'Gr.' : '';
-        document.getElementById('results-container').innerHTML = currentGames.map((g, i) => `<div class="ticket" id="game-${i}"><small>#${i+1}</small><br>${g.map(n => prefix + n).join('-')}</div>`).join('');
+        document.getElementById('results-container').innerHTML = currentGames.map((g, i) => 
+            `<div class="ticket" id="game-${i}"><small>#${i+1}</small><br>${g.map(n => prefix + n).join('-')}</div>`
+        ).join('');
         document.getElementById('actionPanel').style.display = 'flex';
     }
+
+    // --- FUNÇÕES DE UTILIDADE MANTIDAS ---
 
     function updateClock() {
         const now = new Date();
@@ -346,6 +370,7 @@
         const seed = data.getDate() + (data.getMonth() + 1) * 31 + data.getFullYear();
         let random = seed;
         function getNext() { random = (random * 9301 + 49297) % 233280; return random / 233280; }
+
         const container = document.getElementById('palpites-container');
         container.innerHTML = "";
         let indices = Array.from({length: 25}, (_, i) => i);
@@ -354,6 +379,7 @@
             const idx = Math.floor(getNext() * indices.length);
             selecionados.push(bichosInfo[indices.splice(idx, 1)[0]]);
         }
+
         selecionados.forEach(bicho => {
             const gNum = parseInt(bicho.n);
             const dezenasBase = [(gNum*4).toString().padStart(2,'0').replace('100','00'), (gNum*4-1).toString().padStart(2,'0'), (gNum*4-2).toString().padStart(2,'0'), (gNum*4-3).toString().padStart(2,'0')];
@@ -386,6 +412,7 @@
         setTimeout(updateOnlineCounter, 8000);
     }
 
+    // Inicialização
     renderGrid();
     initPalpites();
     updateOnlineCounter();
