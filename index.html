@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EH6NEVNTE4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-EH6NEVNTE4');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fechamentos Do Guinho</title>
@@ -31,7 +39,6 @@
 
         .content { padding: 15px; }
         
-        /* NOVO BANNER VIP */
         .vip-banner {
             background: var(--vip-gradient);
             color: white;
@@ -411,10 +418,12 @@
         setTimeout(updateOnlineCounter, 8000);
     }
 
-    renderGrid();
-    initPalpites();
-    updateOnlineCounter();
-    updateClock();
+    window.onload = () => {
+        renderGrid();
+        initPalpites();
+        updateOnlineCounter();
+        updateClock();
+    };
 </script>
 </body>
 </html>
