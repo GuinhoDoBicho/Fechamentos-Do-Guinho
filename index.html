@@ -11,188 +11,194 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fechamentos Do Guinho</title>
+    <title>Guinho | Inteligência em Fechamentos</title>
     <style>
         :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --success: #27ae60;
-            --whatsapp: #25D366;
-            --danger: #e74c3c;
-            --light: #f8f9fa;
-            --win-blue: #007bff;
-            --gold: #f1c40f;
-            --mercadopago: #009ee3;
-            --bichostar: #1e3799;
-            --fixed: #e67e22;
-            --vip-gradient: linear-gradient(135deg, #8e44ad, #2c3e50);
+            /* Paleta Executiva */
+            --bg-body: #0f172a; /* Azul Marinho Profundo */
+            --bg-card: #1e293b; /* Slate Dark */
+            --primary: #38bdf8; /* Azul Sky (Ações) */
+            --secondary: #64748b; /* Cinza Médio */
+            --success: #10b981; /* Verde Esmeralda */
+            --danger: #ef4444; 
+            --gold: #f59e0b; /* Dourado para destaques */
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
         }
 
-        body { font-family: 'Segoe UI', sans-serif; background-color: #e9ecef; margin: 0; padding: 10px; display: flex; justify-content: center; }
-        .main-card { background: white; width: 100%; max-width: 600px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; }
-        .header { background: var(--primary); color: white; padding: 15px; text-align: center; border-bottom: 4px solid var(--gold); }
-        .header h1 { margin: 0; font-size: 1.5rem; }
-        
-        .online-counter { font-size: 0.75rem; color: #a5d6a7; margin-top: 5px; display: flex; align-items: center; justify-content: center; gap: 5px; }
-        .dot { height: 8px; width: 8px; background-color: #2ecc71; border-radius: 50%; display: inline-block; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+        body { 
+            font-family: 'Inter', -apple-system, sans-serif; 
+            background-color: var(--bg-body); 
+            color: var(--text-main);
+            margin: 0; 
+            padding: 20px 10px; 
+            display: flex; 
+            justify-content: center; 
+            line-height: 1.5;
+        }
 
-        .content { padding: 15px; }
+        .main-card { 
+            background: var(--bg-card); 
+            width: 100%; 
+            max-width: 650px; 
+            border-radius: 16px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3); 
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .header { 
+            background: rgba(0, 0, 0, 0.2); 
+            padding: 25px 15px; 
+            text-align: center; 
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header h1 { 
+            margin: 0; 
+            font-size: 1.4rem; 
+            font-weight: 700; 
+            letter-spacing: -0.5px;
+            color: #fff;
+        }
         
+        .online-counter { 
+            font-size: 0.8rem; 
+            color: var(--text-muted); 
+            margin-top: 8px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 6px; 
+        }
+        .dot { height: 6px; width: 6px; background-color: var(--success); border-radius: 50%; display: inline-block; box-shadow: 0 0 10px var(--success); }
+
+        .content { padding: 20px; }
+        
+        /* Banners e Links */
         .vip-banner {
-            background: var(--vip-gradient);
+            background: linear-gradient(135deg, #0ea5e9, #2563eb);
             color: white;
-            padding: 15px;
-            border-radius: 10px;
+            padding: 18px;
+            border-radius: 12px;
             margin-bottom: 20px;
             text-align: center;
-            border: 2px solid var(--gold);
             text-decoration: none;
             display: block;
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid rgba(255,255,255,0.2);
         }
-        .vip-banner:active { transform: scale(0.98); }
-        .vip-banner h4 { margin: 0; font-size: 1rem; color: var(--gold); }
-        .vip-banner p { margin: 5px 0 0; font-size: 0.85rem; font-weight: bold; }
+        .vip-banner:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .vip-banner h4 { margin: 0; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; }
 
-        .action-links { display: flex; flex-direction: column; gap: 10px; align-items: center; margin-bottom: 20px; }
         .btn-link { 
-            text-decoration: none; padding: 12px 20px; border-radius: 50px; 
-            font-weight: bold; font-size: 0.85rem; display: inline-flex; 
-            align-items: center; gap: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
-            width: 90%; justify-content: center; transition: transform 0.2s;
-        }
-        .btn-link:active { transform: scale(0.98); }
-
-        .btn-donate { 
-            background: var(--mercadopago); color: white; 
-            animation: shake-donate 3s cubic-bezier(.36,.07,.19,.97) infinite;
-        }
-        @keyframes shake-donate {
-            10%, 90% { transform: translate3d(-1px, 0, 0); }
-            20%, 80% { transform: translate3d(2px, 0, 0); }
-            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-            40%, 60% { transform: translate3d(4px, 0, 0); }
-            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 158, 227, 0.7); }
-            50% { box-shadow: 0 0 0 10px rgba(0, 158, 227, 0); }
+            text-decoration: none; padding: 14px; border-radius: 8px; 
+            font-weight: 600; font-size: 0.85rem; display: flex; 
+            align-items: center; justify-content: center; gap: 10px;
+            transition: all 0.2s; border: 1px solid var(--border);
+            width: 100%; box-sizing: border-box;
         }
 
-        .btn-banca { background: var(--bichostar); color: white; border: 2px solid var(--gold); }
+        .btn-donate { background: #009ee3; color: white; margin-bottom: 10px; }
+        .btn-banca { background: #1e3a8a; color: white; border-color: var(--primary); }
 
+        /* Painéis de Dados */
         .suggestions-panel { 
-            background: linear-gradient(135deg, #2c3e50, #4ca1af); 
-            color: white; padding: 15px 10px; border-radius: 10px; margin-bottom: 20px; 
-            text-align: center; border: 2px solid var(--gold);
+            background: rgba(15, 23, 42, 0.5); 
+            border-radius: 12px; margin: 20px 0; padding: 15px;
+            border: 1px solid var(--border);
         }
         
-        .datetime-container { background: rgba(0,0,0,0.2); display: inline-block; padding: 8px 20px; border-radius: 15px; margin-bottom: 10px; }
-        .date-display { display: block; font-size: 0.85rem; color: #fff; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
-        .clock-display { display: block; font-family: monospace; font-size: 1.3rem; color: var(--gold); font-weight: bold; }
+        .datetime-container { margin-bottom: 15px; }
+        .clock-display { font-family: 'Monaco', monospace; font-size: 1.4rem; color: var(--primary); font-weight: bold; }
         
-        .suggestion-container { display: flex; justify-content: space-around; gap: 8px; margin-top: 10px; overflow-x: auto; padding-bottom: 5px; }
-        .group-card { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,215,0,0.3); border-radius: 8px; padding: 8px; flex: 1; min-width: 100px; text-align: center; }
-        
-        .group-icon { 
-            font-size: 2.2rem; display: block; margin-bottom: 5px;
-            animation: bounce-animal 2s ease-in-out infinite;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        .group-card { 
+            background: var(--bg-card); 
+            border: 1px solid var(--border); 
+            border-radius: 10px; padding: 12px; flex: 1; min-width: 110px;
         }
-        @keyframes bounce-animal {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(5deg); }
+
+        .section-title {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+            font-weight: 700;
         }
-        .group-card:nth-child(1) .group-icon { animation-delay: 0s; }
-        .group-card:nth-child(2) .group-icon { animation-delay: 0.5s; }
-        .group-card:nth-child(3) .group-icon { animation-delay: 1s; }
 
-        .group-name { font-weight: bold; color: var(--gold); font-size: 0.75rem; display: block; margin-bottom: 5px; border-bottom: 1px solid rgba(255,255,255,0.2); white-space: nowrap; }
-        .milhar-list { font-family: monospace; font-size: 0.85rem; line-height: 1.3; color: #fff; font-weight: bold; }
-        .milhar-item { display: block; letter-spacing: 0.5px; }
-
-        .results-section {
-            background: #fff; border: 2px solid #ddd; border-radius: 10px;
-            padding: 15px; margin-bottom: 20px; text-align: center;
+        /* Ferramenta de Grid */
+        .num-btn { 
+            width: 48px; height: 48px; border: 1px solid var(--border); 
+            border-radius: 8px; background: rgba(255,255,255,0.05); color: #fff;
+            font-weight: 600; cursor: pointer; transition: 0.2s;
         }
-        .results-section h3 { margin-top: 0; font-size: 0.9rem; color: var(--primary); margin-bottom: 12px; }
-        .btn-result {
-            display: flex; align-items: center; justify-content: space-between;
-            text-decoration: none; background: #f8f9fa; border: 1px solid #ddd;
-            padding: 12px 15px; border-radius: 8px; margin-bottom: 8px;
-            color: var(--primary); font-weight: bold; font-size: 0.85rem;
+        .num-btn:hover { background: rgba(255,255,255,0.1); }
+        .num-btn.active { background: var(--primary); color: #000; border-color: var(--primary); }
+        .num-btn.fixed { background: var(--gold); color: #000; border-color: var(--gold); }
+
+        select, input { 
+            width: 100%; padding: 14px; border-radius: 8px; 
+            background: var(--bg-body); border: 1px solid var(--border); 
+            color: #fff; font-size: 0.9rem; margin-bottom: 10px;
+            box-sizing: border-box;
         }
-        .badge-link { background: var(--secondary); color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.6rem; }
 
-        .puxada-panel { background: #fff3cd; border: 1px solid #ffeeba; padding: 10px; border-radius: 10px; margin-bottom: 15px; }
-        .puxada-panel select { background: white; margin-top: 5px; width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; }
-        #puxada-resultado { font-weight: bold; color: #856404; margin-top: 8px; font-size: 0.9rem; text-align: center; }
+        .main-btn { 
+            background: var(--success); color: #fff; border: none; 
+            padding: 16px; border-radius: 8px; font-weight: 700; width: 100%;
+            cursor: pointer; transition: filter 0.2s; text-transform: uppercase;
+        }
+        .main-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        .main-btn:hover:not(:disabled) { filter: brightness(1.1); }
 
-        .number-grid { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; margin-bottom: 15px; }
-        .num-btn { width: 45px; height: 45px; border: 2px solid #ddd; border-radius: 8px; background: white; font-size: 1.1rem; font-weight: bold; cursor: pointer; }
-        .num-btn.active { background: var(--secondary); color: white; border-color: var(--secondary); }
-        .num-btn.fixed { background: var(--fixed); color: white; border-color: #d35400; }
+        /* Tickets de Resultado */
+        .ticket { 
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border); 
+            padding: 12px; border-radius: 8px; font-family: 'JetBrains Mono', monospace;
+            text-align: center; color: var(--primary); font-size: 1rem;
+        }
+        .ticket.ganhador { background: var(--success) !important; color: #fff !important; border-color: transparent; box-shadow: 0 0 20px rgba(16, 185, 129, 0.4); }
 
-        .panel { background: var(--light); padding: 12px; border-radius: 10px; display: flex; flex-direction: column; gap: 10px; }
-        select, input, button.main-btn { padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 1rem; width: 100%; box-sizing: border-box; }
-        button.main-btn { background: var(--success); color: white; border: none; font-weight: bold; cursor: pointer; }
-        button.main-btn:disabled { background: #bdc3c7; }
-        
-        .action-buttons { display: none; flex-direction: column; gap: 8px; margin-top: 10px; }
-        .btn-whatsapp { background: var(--whatsapp); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .btn-copy { background: #6c757d; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .btn-clear { background: var(--danger); color: white; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 5px; font-size: 0.9rem; width: 100%; }
+        .btn-clear { background: transparent; color: var(--danger); border: 1px solid var(--danger); }
+        .btn-whatsapp { background: #25D366; color: #fff; border: none; }
 
-        #results-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; margin-top: 20px; }
-        .ticket { background: #fff; border: 1px solid #dee2e6; padding: 10px; text-align: center; border-radius: 8px; font-family: monospace; font-weight: bold; font-size: 1.1rem; }
-        .ticket.ganhador { background: var(--win-blue) !important; color: white !important; }
     </style>
 </head>
 <body>
 
 <div class="main-card">
     <div class="header">
-        <h1>Fechamentos Do Guinho</h1>
+        <h1>SISTEMA DE FECHAMENTOS</h1>
         <div class="online-counter">
-            <span class="dot"></span> <span id="user-count">Carregando...</span> pessoas online agora
+            <span class="dot"></span> <span id="user-count">...</span> usuários processando dados
         </div>
     </div>
 
     <div class="content">
         <a href="https://wa.me/5581983638967" target="_blank" class="vip-banner">
-            <h4>🚀 ÁREA VIP DO GUINHO</h4>
-            <p>Quer minha planilha secreta? Clique e entre no grupo!</p>
+            <h4>💎 ACESSO À COMUNIDADE VIP</h4>
         </a>
 
-        <div class="action-links">
-            <a href="https://mpago.la/2Hvokm3" target="_blank" class="btn-link btn-donate">🤝 MANTER SITE ATIVO (DOAÇÃO)</a>
-            <a href="https://bichostars.net/register?ind=8736" target="_blank" class="btn-link btn-banca">🎰 JOGAR AGORA (BANCA ONLINE)</a>
+        <div class="action-links" style="margin-bottom: 25px;">
+            <a href="https://bichostars.net/register?ind=8736" target="_blank" class="btn-link btn-banca">PLATAFORMA DE JOGOS OFICIAL</a>
+            <a href="https://mpago.la/2Hvokm3" target="_blank" class="btn-link" style="color: var(--text-muted); font-size: 0.7rem; border: none;">Manter servidor ativo (Doação)</a>
         </div>
 
         <div class="suggestions-panel">
-            <div class="datetime-container">
-                <div id="current-date" class="date-display">00/00/0000</div>
+            <div class="datetime-container" style="text-align: center;">
+                <div id="current-date" style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 5px;">--/--/----</div>
                 <div id="clock" class="clock-display">00:00:00</div>
             </div>
-            <h3 style="font-size:0.75rem; margin: 5px 0;">✨ GRUPOS E MILHARES DO DIA</h3>
-            <div id="palpites-container" class="suggestion-container"></div>
+            <div class="section-title" style="text-align: center;">Sugestões Algorítmicas do Dia</div>
+            <div id="palpites-container" style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px;"></div>
         </div>
 
-        <div class="results-section">
-            <h3>📊 CONFERIR RESULTADOS DE HOJE:</h3>
-            <a href="https://bichocerto.com/resultados/rj/para-todos/" target="_blank" class="btn-result">
-                RIO (PT / PTM / FED) <span class="badge-link">VER AGORA</span>
-            </a>
-            <a href="https://bichocerto.com/resultados/lk/look/" target="_blank" class="btn-result">
-                LOOK LOTERIAS <span class="badge-link">VER AGORA</span>
-            </a>
-            <a href="https://bichocerto.com/resultados/ln/loteria-nacional/" target="_blank" class="btn-result">
-                LOTERIA NACIONAL <span class="badge-link">VER AGORA</span>
-            </a>
-        </div>
-
-        <div class="puxada-panel">
-            <label style="font-size: 0.8rem; font-weight: bold;">🔎 O QUE DEU? (VER PUXADA):</label>
+        <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--border);">
+            <div class="section-title">Análise de Tendência (Puxada)</div>
             <select id="bichoAnterior" onchange="verPuxada()">
-                <option value="">Selecione o Bicho...</option>
+                <option value="">Selecione o último resultado...</option>
                 <option value="Avestruz (1)">Avestruz (1)</option>
                 <option value="Águia (2)">Águia (2)</option>
                 <option value="Burro (3)">Burro (3)</option>
@@ -219,46 +225,48 @@
                 <option value="Veado (24)">Veado (24)</option>
                 <option value="Vaca (25)">Vaca (25)</option>
             </select>
-            <div id="puxada-resultado">Puxada: --</div>
+            <div id="puxada-resultado" style="text-align: center; color: var(--gold); font-weight: bold; font-size: 0.9rem;">--</div>
         </div>
 
-        <div class="number-grid" id="grid"></div>
-        <div id="status-text" style="text-align:center; margin-bottom:10px; font-weight:bold; font-size:0.9rem;">Selecione os números</div>
+        <div class="section-title">Configurar Fechamento</div>
+        <select id="mode" onchange="clearAll(); renderGrid();">
+            <option value="2-7">Dezena Invertida (7 dezenas -> 21 jogos)</option>
+            <option value="2-8">Dezena Invertida (8 dezenas -> 28 jogos)</option>
+            <option value="3-6">Centena Invertida (6 dezenas -> 20 jogos)</option>
+            <option value="3-7">Centena Invertida (7 dezenas -> 35 jogos)</option>
+            <option value="3-8">Centena Invertida (8 dezenas -> 56 jogos)</option>
+            <option value="3F-7">Centena Invertida (1 Fixa + 7 -> 21 jogos)</option>
+            <option value="3F-8">Centena Invertida (1 Fixa + 8 -> 28 jogos)</option>
+            <option value="4-7">Milhar Invertida (7 dezenas -> 35 jogos)</option>
+            <option value="4-8">Milhar Invertida (8 dezenas -> 70 jogos)</option>
+            <option value="4F-7">Milhar Invertida (1 Fixa + 7 -> 35 jogos)</option>
+            <option value="4F-8">Milhar Invertida (1 Fixa + 8 -> 56 jogos)</option>
+            <option value="TG-7">Terno de Grupo (7 grupos -> 35 jogos)</option>
+            <option value="TG-8">Terno de Grupo (8 grupos -> 56 jogos)</option>
+        </select>
 
-        <div class="panel">
-            <select id="mode" onchange="clearAll(); renderGrid();">
-                <option value="2-7">Dezena Invertida (7 dezenas -> 21 jogos)</option>
-                <option value="2-8">Dezena Invertida (8 dezenas -> 28 jogos)</option>
-                <option value="3-6">Centena Invertida (6 dezenas -> 20 jogos)</option>
-                <option value="3-7">Centena Invertida (7 dezenas -> 35 jogos)</option>
-                <option value="3-8">Centena Invertida (8 dezenas -> 56 jogos)</option>
-                <option value="3F-7">Centena Invertida (1 Fixa + 7 dezenas -> 21 jogos)</option>
-                <option value="3F-8">Centena Invertida (1 Fixa + 8 dezenas -> 28 jogos)</option>
-                <option value="4-7">Milhar Invertida (7 dezenas -> 35 jogos)</option>
-                <option value="4-8">Milhar Invertida (8 dezenas -> 70 jogos)</option>
-                <option value="4F-7">Milhar Invertida (1 Fixa + 7 dezenas -> 35 jogos)</option>
-                <option value="4F-8">Milhar Invertida (1 Fixa + 8 dezenas -> 56 jogos)</option>
-                <option value="TG-7">Terno de Grupo (7 grupos -> 35 jogos)</option>
-                <option value="TG-8">Terno de Grupo (8 grupos -> 56 jogos)</option>
-            </select>
-            <button id="generateBtn" class="main-btn" onclick="generate()" disabled>GERAR JOGOS</button>
-            
-            <div id="actionPanel" class="action-buttons">
-                <button class="btn-copy" onclick="copyToClipboard()">📋 COPIAR JOGOS</button>
-                <button class="btn-whatsapp" onclick="shareWhatsapp()">📲 ENVIAR AO CAMBISTA</button>
-            </div>
+        <div id="grid" style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 20px 0;"></div>
+        <div id="status-text" style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 15px;">Selecione os parâmetros acima</div>
 
-            <div style="border-top: 1px solid #ddd; padding-top: 10px; margin-top: 5px;">
-                <input type="text" id="drawResult" placeholder="Conferidor (ex: 1, 17, 25)" oninput="checkGames()">
-                <button class="btn-clear" onclick="clearAll()">🗑️ LIMPAR TUDO</button>
-            </div>
+        <button id="generateBtn" class="main-btn" onclick="generate()" disabled>PROCESSAR COMBINAÇÕES</button>
+        
+        <div id="actionPanel" style="display:none; flex-direction: column; gap: 10px; margin-top: 15px;">
+            <button class="btn-link" style="background: var(--bg-body); color: #fff;" onclick="copyToClipboard()">COPIAR LISTA</button>
+            <button class="btn-link btn-whatsapp" onclick="shareWhatsapp()">ENVIAR PARA CAMBISTA</button>
         </div>
 
-        <div id="results-container"></div>
+        <div style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 20px;">
+            <div class="section-title">Conferidor Instantâneo</div>
+            <input type="text" id="drawResult" placeholder="Digite os números sorteados..." oninput="checkGames()">
+            <button class="btn-link btn-clear" onclick="clearAll()">REINICIAR FERRAMENTA</button>
+        </div>
+
+        <div id="results-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-top: 20px;"></div>
     </div>
 </div>
 
 <script>
+    /* LÓGICA DE PROGRAMAÇÃO PRESERVADA */
     let selectedNumbers = [];
     let fixedNumber = null;
     let currentGames = [];
@@ -313,11 +321,11 @@
         const nReq = parseInt(mode.split('-')[1]);
         const isFixedMode = mode.includes('F');
         if (isFixedMode) {
-            const fixaStatus = fixedNumber !== null ? '1 Fixa OK' : 'Selecione a FIXA';
-            document.getElementById('status-text').innerText = `${fixaStatus} + ${selectedNumbers.length}/${nReq} Variáveis`;
+            const fixaStatus = fixedNumber !== null ? 'Fixa Selecionada' : 'Escolha 1 Fixa';
+            document.getElementById('status-text').innerText = `${fixaStatus} | ${selectedNumbers.length}/${nReq} Variáveis`;
             document.getElementById('generateBtn').disabled = !(fixedNumber !== null && selectedNumbers.length === nReq);
         } else {
-            document.getElementById('status-text').innerText = `Selecionados: ${selectedNumbers.length} / ${nReq}`;
+            document.getElementById('status-text').innerText = `Selecionados: ${selectedNumbers.length} de ${nReq}`;
             document.getElementById('generateBtn').disabled = selectedNumbers.length !== nReq;
         }
     }
@@ -341,14 +349,15 @@
             }
             combineGeneric(0, []);
         }
-        const prefix = mode.startsWith('TG') ? 'Gr.' : '';
-        document.getElementById('results-container').innerHTML = currentGames.map((g, i) => `<div class="ticket" id="game-${i}"><small>#${i+1}</small><br>${g.map(n => prefix + n).join('-')}</div>`).join('');
+        const prefix = mode.startsWith('TG') ? 'G.' : '';
+        document.getElementById('results-container').innerHTML = currentGames.map((g, i) => `<div class="ticket" id="game-${i}"><small style="font-size:0.6rem; color:var(--text-muted)">ID ${i+1}</small><br>${g.map(n => prefix + n).join('-')}</div>`).join('');
         document.getElementById('actionPanel').style.display = 'flex';
+        document.getElementById('results-container').scrollIntoView({ behavior: 'smooth' });
     }
 
     function updateClock() {
         const now = new Date();
-        document.getElementById('current-date').innerText = now.toLocaleDateString('pt-BR');
+        document.getElementById('current-date').innerText = now.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' });
         document.getElementById('clock').innerText = now.toLocaleTimeString('pt-BR');
     }
     setInterval(updateClock, 1000);
@@ -356,7 +365,7 @@
     function verPuxada() {
         const puxadas = { "Avestruz (1)": "Vaca, Águia, Pavão", "Águia (2)": "Coelho, Peru, Galo", "Burro (3)": "Cavalo, Elefante, Veado", "Borboleta (4)": "Cabra, Gato, Leão", "Cachorro (5)": "Galo, Camelo, Macaco", "Cabra (6)": "Touro, Carneiro, Urso", "Carneiro (7)": "Cabra, Coelho, Jacaré", "Camelo (8)": "Cachorro, Elefante, Urso", "Cobra (9)": "Jacaré, Porco, Gato", "Coelho (10)": "Águia, Carneiro, Burro", "Cavalo (11)": "Burro, Touro, Cabra", "Elefante (12)": "Burro, Camelo, Tigre", "Galo (13)": "Cachorro, Pavão, Águia", "Gato (14)": "Cobra, Borboleta, Leão", "Jacaré (15)": "Cobra, Porco, Carneiro", "Leão (16)": "Gato, Tigre, Elefante", "Macaco (17)": "Cachorro, Carneiro, Veado", "Porco (18)": "Cobra, Jacaré, Vaca", "Pavão (19)": "Avestruz, Galo, Coelho", "Peru (20)": "Águia, Pavão, Veado", "Touro (21)": "Vaca, Cabra, Cavalo", "Tigre (22)": "Leão, Gato, Touro", "Urso (23)": "Elefante, Camelo, Cabra", "Veado (24)": "Burro, Macaco, Peru", "Vaca (25)": "Touro, Avestruz, Porco" };
         const sel = document.getElementById('bichoAnterior').value;
-        document.getElementById('puxada-resultado').innerText = sel ? `Puxada: ${puxadas[sel]}` : "Puxada: --";
+        document.getElementById('puxada-resultado').innerText = sel ? `Sugestão: ${puxadas[sel]}` : "--";
     }
 
     function checkGames() {
@@ -383,8 +392,8 @@
         selecionados.forEach(bicho => {
             const gNum = parseInt(bicho.n);
             const dezenasBase = [(gNum*4).toString().padStart(2,'0').replace('100','00'), (gNum*4-1).toString().padStart(2,'0'), (gNum*4-2).toString().padStart(2,'0'), (gNum*4-3).toString().padStart(2,'0')];
-            let milharesHTML = dezenasBase.map(dez => `<span class="milhar-item">${Math.floor(getNext()*100).toString().padStart(2,'0')}${dez}</span>`).join('');
-            container.innerHTML += `<div class="group-card"><span class="group-icon">${bicho.icon}</span><span class="group-name">${bicho.n} - ${bicho.nome}</span><div class="milhar-list">${milharesHTML}</div></div>`;
+            let milharesHTML = dezenasBase.map(dez => `<span style="display:block; font-size:0.8rem;">${Math.floor(getNext()*100).toString().padStart(2,'0')}${dez}</span>`).join('');
+            container.innerHTML += `<div class="group-card"><span style="font-size:1.5rem">${bicho.icon}</span><div style="font-weight:700; color:var(--primary); margin:5px 0;">${bicho.n}</div><div style="font-family:monospace">${milharesHTML}</div></div>`;
         });
     }
 
@@ -398,24 +407,22 @@
     }
 
     function copyToClipboard() {
-        let text = `FECHAMENTOS DO GUINHO\n\n` + currentGames.map((g, i) => `Jogo ${i+1}: ${g.join('-')}`).join('\n');
-        navigator.clipboard.writeText(text).then(() => alert("Jogos copiados!"));
+        let text = `GUINHO FECHAMENTOS\n\n` + currentGames.map((g, i) => `Jogo ${i+1}: ${g.join('-')}`).join('\n');
+        navigator.clipboard.writeText(text).then(() => alert("Copiado para a área de transferência."));
     }
 
     function shareWhatsapp() {
         const modeName = document.getElementById('mode').options[document.getElementById('mode').selectedIndex].text.split('(')[0].trim();
-        let text = `*Olá! Gostaria de fazer esses jogos:*\n\n`;
-        text += `*Fechamento:* ${modeName}\n`;
+        let text = `*FECHAMENTO PROFISSIONAL*\n\n`;
+        text += `*Modalidade:* ${modeName}\n`;
         text += `*Jogos:*\n`;
         text += currentGames.map((g, i) => `${i+1}: ${g.join('-')}`).join('\n');
-        text += `\n\n_Feito no site: Fechamentos do Guinho_`;
-        
         window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
     }
 
     function updateOnlineCounter() {
-        document.getElementById('user-count').innerText = 100 + Math.floor(Math.random() * 50);
-        setTimeout(updateOnlineCounter, 8000);
+        document.getElementById('user-count').innerText = 150 + Math.floor(Math.random() * 80);
+        setTimeout(updateOnlineCounter, 10000);
     }
 
     window.onload = () => {
