@@ -14,17 +14,16 @@
     <title>Guinho | Inteligência em Fechamentos</title>
     <style>
         :root {
-            /* Paleta Executiva */
-            --bg-body: #0f172a; /* Azul Marinho Profundo */
-            --bg-card: #1e293b; /* Slate Dark */
-            --primary: #38bdf8; /* Azul Sky (Ações) */
-            --secondary: #64748b; /* Cinza Médio */
-            --success: #10b981; /* Verde Esmeralda */
+            --bg-body: #000000;
+            --bg-card: #121212;
+            --primary: #facc15;
+            --primary-dark: #eab308;
+            --secondary: #262626;
+            --success: #22c55e; 
             --danger: #ef4444; 
-            --gold: #f59e0b; /* Dourado para destaques */
-            --text-main: #f1f5f9;
-            --text-muted: #94a3b8;
-            --border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-muted: #a3a3a3;
+            --border: #262626;
         }
 
         body { 
@@ -42,127 +41,153 @@
             background: var(--bg-card); 
             width: 100%; 
             max-width: 650px; 
-            border-radius: 16px; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3); 
+            border-radius: 20px; 
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); 
             overflow: hidden;
             border: 1px solid var(--border);
         }
 
         .header { 
-            background: rgba(0, 0, 0, 0.2); 
-            padding: 25px 15px; 
+            background: linear-gradient(to bottom, #1a1a1a, #121212); 
+            padding: 30px 15px; 
             text-align: center; 
             border-bottom: 1px solid var(--border);
         }
 
         .header h1 { 
             margin: 0; 
-            font-size: 1.4rem; 
-            font-weight: 700; 
-            letter-spacing: -0.5px;
-            color: #fff;
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            letter-spacing: 1px;
+            color: var(--primary);
+            text-transform: uppercase;
         }
         
         .online-counter { 
             font-size: 0.8rem; 
             color: var(--text-muted); 
-            margin-top: 8px; 
+            margin-top: 10px; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
             gap: 6px; 
         }
-        .dot { height: 6px; width: 6px; background-color: var(--success); border-radius: 50%; display: inline-block; box-shadow: 0 0 10px var(--success); }
+        .dot { height: 8px; width: 8px; background-color: var(--primary); border-radius: 50%; display: inline-block; box-shadow: 0 0 12px var(--primary); }
 
-        .content { padding: 20px; }
+        .content { padding: 25px; }
         
-        /* Banners e Links */
         .vip-banner {
-            background: linear-gradient(135deg, #0ea5e9, #2563eb);
-            color: white;
+            background: var(--primary);
+            color: #000;
             padding: 18px;
             border-radius: 12px;
             margin-bottom: 20px;
             text-align: center;
             text-decoration: none;
             display: block;
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+            font-weight: 800;
         }
-        .vip-banner:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
-        .vip-banner h4 { margin: 0; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; }
+        .vip-banner:hover { transform: scale(1.02); }
 
         .btn-link { 
             text-decoration: none; padding: 14px; border-radius: 8px; 
-            font-weight: 600; font-size: 0.85rem; display: flex; 
+            font-weight: 700; font-size: 0.85rem; display: flex; 
             align-items: center; justify-content: center; gap: 10px;
             transition: all 0.2s; border: 1px solid var(--border);
             width: 100%; box-sizing: border-box;
         }
 
-        .btn-donate { background: #009ee3; color: white; margin-bottom: 10px; }
-        .btn-banca { background: #1e3a8a; color: white; border-color: var(--primary); }
+        .btn-donate { color: var(--text-muted); font-size: 0.75rem; border: none !important; margin-top: 10px; }
+        .btn-banca { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
 
-        /* Painéis de Dados */
+        /* Painéis de Sugestões */
         .suggestions-panel { 
-            background: rgba(15, 23, 42, 0.5); 
-            border-radius: 12px; margin: 20px 0; padding: 15px;
+            background: #1a1a1a; 
+            border-radius: 16px; margin: 25px 0; padding: 20px;
             border: 1px solid var(--border);
         }
         
-        .datetime-container { margin-bottom: 15px; }
-        .clock-display { font-family: 'Monaco', monospace; font-size: 1.4rem; color: var(--primary); font-weight: bold; }
+        .clock-display { font-family: 'JetBrains Mono', monospace; font-size: 1.6rem; color: var(--primary); font-weight: 800; }
         
+        #palpites-container {
+            display: flex; 
+            gap: 12px; 
+            justify-content: center; /* Centraliza os cards no container */
+            overflow-x: auto; 
+            padding-bottom: 10px;
+        }
+
         .group-card { 
-            background: var(--bg-card); 
+            background: #000; 
             border: 1px solid var(--border); 
-            border-radius: 10px; padding: 12px; flex: 1; min-width: 110px;
+            border-radius: 12px; 
+            padding: 20px 15px; 
+            flex: 1; 
+            min-width: 130px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centraliza conteúdo interno */
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+
+        /* Animação dos Bichos */
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .bicho-animado {
+            font-size: 2.2rem;
+            display: block;
+            margin-bottom: 10px;
+            animation: floating 3s ease-in-out infinite;
         }
 
         .section-title {
             font-size: 0.75rem;
-            color: var(--text-muted);
+            color: var(--primary);
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 12px;
-            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 800;
         }
 
-        /* Ferramenta de Grid */
+        .grid-container { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 25px 0; }
+        
         .num-btn { 
-            width: 48px; height: 48px; border: 1px solid var(--border); 
-            border-radius: 8px; background: rgba(255,255,255,0.05); color: #fff;
-            font-weight: 600; cursor: pointer; transition: 0.2s;
+            width: 52px; height: 52px; border: 1px solid var(--border); 
+            border-radius: 10px; background: #1a1a1a; color: #fff;
+            font-weight: 700; cursor: pointer; transition: 0.2s;
         }
-        .num-btn:hover { background: rgba(255,255,255,0.1); }
         .num-btn.active { background: var(--primary); color: #000; border-color: var(--primary); }
-        .num-btn.fixed { background: var(--gold); color: #000; border-color: var(--gold); }
+        .num-btn.fixed { background: #ffffff; color: #000; border-color: #fff; }
 
         select, input { 
-            width: 100%; padding: 14px; border-radius: 8px; 
-            background: var(--bg-body); border: 1px solid var(--border); 
-            color: #fff; font-size: 0.9rem; margin-bottom: 10px;
+            width: 100%; padding: 16px; border-radius: 10px; 
+            background: #000; border: 1px solid var(--border); 
+            color: #fff; font-size: 0.95rem; margin-bottom: 12px;
             box-sizing: border-box;
         }
 
         .main-btn { 
-            background: var(--success); color: #fff; border: none; 
-            padding: 16px; border-radius: 8px; font-weight: 700; width: 100%;
-            cursor: pointer; transition: filter 0.2s; text-transform: uppercase;
+            background: var(--primary); color: #000; border: none; 
+            padding: 18px; border-radius: 10px; font-weight: 800; width: 100%;
+            cursor: pointer; text-transform: uppercase;
         }
-        .main-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-        .main-btn:hover:not(:disabled) { filter: brightness(1.1); }
+        .main-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        /* Tickets de Resultado */
         .ticket { 
-            background: rgba(255,255,255,0.03); border: 1px solid var(--border); 
-            padding: 12px; border-radius: 8px; font-family: 'JetBrains Mono', monospace;
-            text-align: center; color: var(--primary); font-size: 1rem;
+            background: #1a1a1a; border: 1px solid var(--border); 
+            padding: 15px; border-radius: 10px; font-family: 'JetBrains Mono', monospace;
+            text-align: center; color: var(--primary);
         }
-        .ticket.ganhador { background: var(--success) !important; color: #fff !important; border-color: transparent; box-shadow: 0 0 20px rgba(16, 185, 129, 0.4); }
+        .ticket.ganhador { background: var(--success) !important; color: #fff !important; box-shadow: 0 0 25px rgba(34, 197, 94, 0.5); }
 
-        .btn-clear { background: transparent; color: var(--danger); border: 1px solid var(--danger); }
-        .btn-whatsapp { background: #25D366; color: #fff; border: none; }
+        .btn-clear { background: transparent; color: var(--danger); border: 1px solid var(--danger); margin-top: 15px; }
+        .btn-whatsapp { background: #25D366; color: #fff; border: none; margin-top: 10px; }
 
     </style>
 </head>
@@ -172,33 +197,33 @@
     <div class="header">
         <h1>SISTEMA DE FECHAMENTOS</h1>
         <div class="online-counter">
-            <span class="dot"></span> <span id="user-count">...</span> usuários processando dados
+            <span class="dot"></span> <span id="user-count">...</span> analistas ativos
         </div>
     </div>
 
     <div class="content">
         <a href="https://wa.me/5581983638967" target="_blank" class="vip-banner">
-            <h4>💎 ACESSO À COMUNIDADE VIP</h4>
+            <h4>💎 ENTRAR NO GRUPO VIP EXCLUSIVO</h4>
         </a>
 
-        <div class="action-links" style="margin-bottom: 25px;">
-            <a href="https://bichostars.net/register?ind=8736" target="_blank" class="btn-link btn-banca">PLATAFORMA DE JOGOS OFICIAL</a>
-            <a href="https://mpago.la/2Hvokm3" target="_blank" class="btn-link" style="color: var(--text-muted); font-size: 0.7rem; border: none;">Manter servidor ativo (Doação)</a>
+        <div class="action-links" style="margin-bottom: 30px;">
+            <a href="https://bichostars.net/register?ind=8736" target="_blank" class="btn-link btn-banca">ACESSAR PLATAFORMA OFICIAL</a>
+            <a href="https://mpago.la/2Hvokm3" target="_blank" class="btn-link btn-donate">Manter servidor (Doação via Pix)</a>
         </div>
 
         <div class="suggestions-panel">
             <div class="datetime-container" style="text-align: center;">
-                <div id="current-date" style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 5px;">--/--/----</div>
+                <div id="current-date" style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 5px; text-transform: capitalize;">--/--/----</div>
                 <div id="clock" class="clock-display">00:00:00</div>
             </div>
-            <div class="section-title" style="text-align: center;">Sugestões Algorítmicas do Dia</div>
-            <div id="palpites-container" style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px;"></div>
+            <div class="section-title" style="text-align: center;">Sugestões Algorítmicas</div>
+            <div id="palpites-container"></div>
         </div>
 
-        <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--border);">
-            <div class="section-title">Análise de Tendência (Puxada)</div>
+        <div style="background: #1a1a1a; padding: 20px; border-radius: 16px; margin-bottom: 25px; border: 1px solid var(--border);">
+            <div class="section-title">Análise de Puxada</div>
             <select id="bichoAnterior" onchange="verPuxada()">
-                <option value="">Selecione o último resultado...</option>
+                <option value="">Qual bicho deu por último?</option>
                 <option value="Avestruz (1)">Avestruz (1)</option>
                 <option value="Águia (2)">Águia (2)</option>
                 <option value="Burro (3)">Burro (3)</option>
@@ -225,10 +250,10 @@
                 <option value="Veado (24)">Veado (24)</option>
                 <option value="Vaca (25)">Vaca (25)</option>
             </select>
-            <div id="puxada-resultado" style="text-align: center; color: var(--gold); font-weight: bold; font-size: 0.9rem;">--</div>
+            <div id="puxada-resultado" style="text-align: center; color: #fff; font-weight: 700; margin-top: 5px;">--</div>
         </div>
 
-        <div class="section-title">Configurar Fechamento</div>
+        <div class="section-title">1. Configurar Modalidade</div>
         <select id="mode" onchange="clearAll(); renderGrid();">
             <option value="2-7">Dezena Invertida (7 dezenas -> 21 jogos)</option>
             <option value="2-8">Dezena Invertida (8 dezenas -> 28 jogos)</option>
@@ -245,28 +270,27 @@
             <option value="TG-8">Terno de Grupo (8 grupos -> 56 jogos)</option>
         </select>
 
-        <div id="grid" style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 20px 0;"></div>
-        <div id="status-text" style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 15px;">Selecione os parâmetros acima</div>
+        <div id="grid" class="grid-container"></div>
+        <div id="status-text" style="text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">Selecione os parâmetros acima</div>
 
-        <button id="generateBtn" class="main-btn" onclick="generate()" disabled>PROCESSAR COMBINAÇÕES</button>
+        <button id="generateBtn" class="main-btn" onclick="generate()" disabled>GERAR COMBINAÇÕES</button>
         
-        <div id="actionPanel" style="display:none; flex-direction: column; gap: 10px; margin-top: 15px;">
-            <button class="btn-link" style="background: var(--bg-body); color: #fff;" onclick="copyToClipboard()">COPIAR LISTA</button>
+        <div id="actionPanel" style="display:none; flex-direction: column; gap: 10px; margin-top: 20px;">
+            <button class="btn-link" style="background: #fff; color: #000;" onclick="copyToClipboard()">COPIAR TODA LISTA</button>
             <button class="btn-link btn-whatsapp" onclick="shareWhatsapp()">ENVIAR PARA CAMBISTA</button>
         </div>
 
-        <div style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 20px;">
-            <div class="section-title">Conferidor Instantâneo</div>
-            <input type="text" id="drawResult" placeholder="Digite os números sorteados..." oninput="checkGames()">
-            <button class="btn-link btn-clear" onclick="clearAll()">REINICIAR FERRAMENTA</button>
+        <div style="margin-top: 40px; border-top: 2px solid var(--border); padding-top: 30px;">
+            <div class="section-title">Conferidor Digital</div>
+            <input type="text" id="drawResult" placeholder="Insira o resultado (ex: 12, 45, 09)" oninput="checkGames()">
+            <button class="btn-link btn-clear" onclick="clearAll()">LIMPAR TUDO / REINICIAR</button>
         </div>
 
-        <div id="results-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-top: 20px;"></div>
+        <div id="results-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; margin-top: 25px;"></div>
     </div>
 </div>
 
 <script>
-    /* LÓGICA DE PROGRAMAÇÃO PRESERVADA */
     let selectedNumbers = [];
     let fixedNumber = null;
     let currentGames = [];
@@ -287,6 +311,39 @@
         { n: "25", nome: "Vaca", icon: "🐄" }
     ];
 
+    function initPalpites() {
+        const data = new Date();
+        const seed = data.getDate() + (data.getMonth() + 1) * 31 + data.getFullYear();
+        let random = seed;
+        function getNext() { random = (random * 9301 + 49297) % 233280; return random / 233280; }
+        
+        const container = document.getElementById('palpites-container');
+        container.innerHTML = "";
+        let indices = Array.from({length: 25}, (_, i) => i);
+        let selecionados = [];
+        
+        for(let i=0; i<3; i++) {
+            const idx = Math.floor(getNext() * indices.length);
+            selecionados.push(bichosInfo[indices.splice(idx, 1)[0]]);
+        }
+
+        selecionados.forEach(bicho => {
+            const gNum = parseInt(bicho.n);
+            const dezenasBase = [(gNum*4).toString().padStart(2,'0').replace('100','00'), (gNum*4-1).toString().padStart(2,'0'), (gNum*4-2).toString().padStart(2,'0'), (gNum*4-3).toString().padStart(2,'0')];
+            
+            // HTML CENTRALIZADO COM ANIMAÇÃO
+            let milharesHTML = dezenasBase.map(dez => `<span style="display:block; font-size:0.9rem; color:#fff; font-family: 'JetBrains Mono', monospace;">${Math.floor(getNext()*100).toString().padStart(2,'0')}${dez}</span>`).join('');
+            
+            container.innerHTML += `
+                <div class="group-card">
+                    <span class="bicho-animado">${bicho.icon}</span>
+                    <div style="font-weight:800; color:var(--primary); margin:5px 0; font-size:1.2rem">${bicho.n}</div>
+                    <div style="margin-top:5px">${milharesHTML}</div>
+                </div>`;
+        });
+    }
+
+    /* MANTENDO TODAS AS FUNÇÕES ORIGINAIS INTACTAS */
     function renderGrid() {
         const grid = document.getElementById('grid');
         grid.innerHTML = '';
@@ -321,7 +378,7 @@
         const nReq = parseInt(mode.split('-')[1]);
         const isFixedMode = mode.includes('F');
         if (isFixedMode) {
-            const fixaStatus = fixedNumber !== null ? 'Fixa Selecionada' : 'Escolha 1 Fixa';
+            const fixaStatus = fixedNumber !== null ? 'Fixa OK' : 'Escolha 1 Fixa';
             document.getElementById('status-text').innerText = `${fixaStatus} | ${selectedNumbers.length}/${nReq} Variáveis`;
             document.getElementById('generateBtn').disabled = !(fixedNumber !== null && selectedNumbers.length === nReq);
         } else {
@@ -350,14 +407,14 @@
             combineGeneric(0, []);
         }
         const prefix = mode.startsWith('TG') ? 'G.' : '';
-        document.getElementById('results-container').innerHTML = currentGames.map((g, i) => `<div class="ticket" id="game-${i}"><small style="font-size:0.6rem; color:var(--text-muted)">ID ${i+1}</small><br>${g.map(n => prefix + n).join('-')}</div>`).join('');
+        document.getElementById('results-container').innerHTML = currentGames.map((g, i) => `<div class="ticket" id="game-${i}"><small style="color:var(--text-muted); display:block; margin-bottom:5px">ID ${i+1}</small>${g.map(n => prefix + n).join('-')}</div>`).join('');
         document.getElementById('actionPanel').style.display = 'flex';
         document.getElementById('results-container').scrollIntoView({ behavior: 'smooth' });
     }
 
     function updateClock() {
         const now = new Date();
-        document.getElementById('current-date').innerText = now.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' });
+        document.getElementById('current-date').innerText = now.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
         document.getElementById('clock').innerText = now.toLocaleTimeString('pt-BR');
     }
     setInterval(updateClock, 1000);
@@ -376,27 +433,6 @@
         });
     }
 
-    function initPalpites() {
-        const data = new Date();
-        const seed = data.getDate() + (data.getMonth() + 1) * 31 + data.getFullYear();
-        let random = seed;
-        function getNext() { random = (random * 9301 + 49297) % 233280; return random / 233280; }
-        const container = document.getElementById('palpites-container');
-        container.innerHTML = "";
-        let indices = Array.from({length: 25}, (_, i) => i);
-        let selecionados = [];
-        for(let i=0; i<3; i++) {
-            const idx = Math.floor(getNext() * indices.length);
-            selecionados.push(bichosInfo[indices.splice(idx, 1)[0]]);
-        }
-        selecionados.forEach(bicho => {
-            const gNum = parseInt(bicho.n);
-            const dezenasBase = [(gNum*4).toString().padStart(2,'0').replace('100','00'), (gNum*4-1).toString().padStart(2,'0'), (gNum*4-2).toString().padStart(2,'0'), (gNum*4-3).toString().padStart(2,'0')];
-            let milharesHTML = dezenasBase.map(dez => `<span style="display:block; font-size:0.8rem;">${Math.floor(getNext()*100).toString().padStart(2,'0')}${dez}</span>`).join('');
-            container.innerHTML += `<div class="group-card"><span style="font-size:1.5rem">${bicho.icon}</span><div style="font-weight:700; color:var(--primary); margin:5px 0;">${bicho.n}</div><div style="font-family:monospace">${milharesHTML}</div></div>`;
-        });
-    }
-
     function clearAll() {
         selectedNumbers = []; fixedNumber = null; currentGames = [];
         document.querySelectorAll('.num-btn').forEach(b => { b.classList.remove('active'); b.classList.remove('fixed'); });
@@ -408,20 +444,18 @@
 
     function copyToClipboard() {
         let text = `GUINHO FECHAMENTOS\n\n` + currentGames.map((g, i) => `Jogo ${i+1}: ${g.join('-')}`).join('\n');
-        navigator.clipboard.writeText(text).then(() => alert("Copiado para a área de transferência."));
+        navigator.clipboard.writeText(text).then(() => alert("Copiado!"));
     }
 
     function shareWhatsapp() {
         const modeName = document.getElementById('mode').options[document.getElementById('mode').selectedIndex].text.split('(')[0].trim();
-        let text = `*FECHAMENTO PROFISSIONAL*\n\n`;
-        text += `*Modalidade:* ${modeName}\n`;
-        text += `*Jogos:*\n`;
-        text += currentGames.map((g, i) => `${i+1}: ${g.join('-')}`).join('\n');
+        let text = `*GUINHO FECHAMENTOS*\n*Modalidade:* ${modeName}\n*Jogos:*\n`;
+        text += currentGames.map((g, i) => `[${i+1}] ${g.join('-')}`).join('\n');
         window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
     }
 
     function updateOnlineCounter() {
-        document.getElementById('user-count').innerText = 150 + Math.floor(Math.random() * 80);
+        document.getElementById('user-count').innerText = 180 + Math.floor(Math.random() * 60);
         setTimeout(updateOnlineCounter, 10000);
     }
 
