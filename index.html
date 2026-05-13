@@ -12,182 +12,292 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guinho | Inteligência em Fechamentos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --bg-body: #000000;
-            --bg-card: #121212;
-            --primary: #facc15;
-            --primary-dark: #eab308;
-            --secondary: #262626;
-            --success: #22c55e; 
-            --danger: #ef4444; 
-            --text-main: #ffffff;
-            --text-muted: #a3a3a3;
-            --border: #262626;
+            /* Paleta Alegre e Moderna */
+            --bg-body: #f0f4f8; /* Cinza azulado muito claro */
+            --bg-card: #ffffff; /* Branco puro para os cards */
+            --primary: #f59e0b; /* Amarelo Ouro Vibrante */
+            --primary-dark: #d97706;
+            --accent-blue: #3b82f6; /* Azul Elétrico para links */
+            --secondary: #f8fafc; /* Fundo de inputs */
+            --success: #10b981; /* Verde Esmeralda */
+            --danger: #f43f5e; /* Coral/Vermelho suave */
+            --text-main: #1e293b; /* Azul escuro quase preto para leitura */
+            --text-muted: #64748b; /* Cinza para textos secundários */
+            --border: #e2e8f0; /* Bordas suaves */
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
         }
 
         body { 
-            font-family: 'Inter', -apple-system, sans-serif; 
-            background-color: var(--bg-body); 
+            font-family: 'Poppins', -apple-system, sans-serif; 
+            background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
             color: var(--text-main);
             margin: 0; 
             padding: 20px 10px; 
             display: flex; 
             justify-content: center; 
             line-height: 1.5;
+            min-height: 100vh;
         }
 
+        /* Card Principal Estilo App */
         .main-card { 
             background: var(--bg-card); 
             width: 100%; 
             max-width: 650px; 
-            border-radius: 20px; 
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); 
+            border-radius: 24px; 
+            box-shadow: var(--shadow);
             overflow: hidden;
-            border: 1px solid var(--border);
+            border: 1px solid rgba(255,255,255,0.8);
         }
 
         .header { 
-            background: linear-gradient(to bottom, #1a1a1a, #121212); 
-            padding: 30px 15px; 
+            background: #ffffff; 
+            padding: 35px 20px; 
             text-align: center; 
-            border-bottom: 1px solid var(--border);
+            border-bottom: 2px solid var(--bg-body);
         }
 
         .header h1 { 
             margin: 0; 
-            font-size: 1.5rem; 
+            font-size: 1.6rem; 
             font-weight: 800; 
-            letter-spacing: 1px;
-            color: var(--primary);
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #d97706, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             text-transform: uppercase;
         }
         
         .online-counter { 
-            font-size: 0.8rem; 
+            font-size: 0.85rem; 
             color: var(--text-muted); 
-            margin-top: 10px; 
+            margin-top: 12px; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            gap: 6px; 
+            gap: 8px; 
+            background: #f1f5f9;
+            padding: 5px 15px;
+            border-radius: 20px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
         }
-        .dot { height: 8px; width: 8px; background-color: var(--primary); border-radius: 50%; display: inline-block; box-shadow: 0 0 12px var(--primary); }
+        .dot { 
+            height: 10px; 
+            width: 10px; 
+            background-color: var(--success); 
+            border-radius: 50%; 
+            display: inline-block; 
+            box-shadow: 0 0 10px var(--success); 
+        }
 
-        .content { padding: 25px; }
+        .content { padding: 30px; }
         
+        /* Banner VIP Alegre */
         .vip-banner {
-            background: var(--primary);
-            color: #000;
-            padding: 18px;
-            border-radius: 12px;
-            margin-bottom: 20px;
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 25px;
             text-align: center;
             text-decoration: none;
             display: block;
             transition: all 0.3s ease;
             font-weight: 800;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+            border: none;
         }
-        .vip-banner:hover { transform: scale(1.02); }
+        .vip-banner h4 { margin: 0; font-size: 1.1rem; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .vip-banner:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4); }
 
         .btn-link { 
-            text-decoration: none; padding: 14px; border-radius: 8px; 
-            font-weight: 700; font-size: 0.85rem; display: flex; 
-            align-items: center; justify-content: center; gap: 10px;
-            transition: all 0.2s; border: 1px solid var(--border);
-            width: 100%; box-sizing: border-box;
+            text-decoration: none; 
+            padding: 16px; 
+            border-radius: 12px; 
+            font-weight: 700; 
+            font-size: 0.9rem; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 10px;
+            transition: all 0.2s; 
+            border: 1px solid var(--border);
+            width: 100%; 
+            box-sizing: border-box;
         }
 
-        .btn-donate { color: var(--text-muted); font-size: 0.75rem; border: none !important; margin-top: 10px; }
-        .btn-banca { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+        .btn-donate { 
+            color: var(--text-muted); 
+            font-size: 0.8rem; 
+            border: none !important; 
+            margin-top: 10px; 
+            background: transparent;
+        }
+        .btn-donate:hover { color: var(--text-main); text-decoration: underline; }
 
-        /* Painéis de Sugestões */
+        .btn-banca { 
+            background: var(--accent-blue); 
+            color: #ffffff; 
+            border: none; 
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+        .btn-banca:hover { background: #2563eb; transform: scale(1.01); }
+
+        /* Painéis de Sugestões com Cores Suaves */
         .suggestions-panel { 
-            background: #1a1a1a; 
-            border-radius: 16px; margin: 25px 0; padding: 20px;
+            background: #f8fafc; 
+            border-radius: 20px; 
+            margin: 30px 0; 
+            padding: 25px;
             border: 1px solid var(--border);
         }
         
-        .clock-display { font-family: 'JetBrains Mono', monospace; font-size: 1.6rem; color: var(--primary); font-weight: 800; }
+        .clock-display { 
+            font-family: 'JetBrains Mono', monospace; 
+            font-size: 1.8rem; 
+            color: var(--text-main); 
+            font-weight: 800; 
+            margin-bottom: 15px;
+        }
         
         #palpites-container {
             display: flex; 
-            gap: 12px; 
-            justify-content: center; /* Centraliza os cards no container */
+            gap: 15px; 
+            justify-content: center; 
             overflow-x: auto; 
-            padding-bottom: 10px;
+            padding: 10px 0;
         }
 
         .group-card { 
-            background: #000; 
+            background: #ffffff; 
             border: 1px solid var(--border); 
-            border-radius: 12px; 
-            padding: 20px 15px; 
+            border-radius: 16px; 
+            padding: 20px 10px; 
             flex: 1; 
-            min-width: 130px;
+            min-width: 120px;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Centraliza conteúdo interno */
+            align-items: center;
             text-align: center;
-            transition: border-color 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: all 0.3s;
         }
+        .group-card:hover { border-color: var(--primary); transform: translateY(-2px); }
 
-        /* Animação dos Bichos */
         @keyframes floating {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
             100% { transform: translateY(0px); }
         }
 
         .bicho-animado {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             display: block;
-            margin-bottom: 10px;
-            animation: floating 3s ease-in-out infinite;
+            margin-bottom: 12px;
+            animation: floating 4s ease-in-out infinite;
         }
 
         .section-title {
-            font-size: 0.75rem;
-            color: var(--primary);
+            font-size: 0.8rem;
+            color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             margin-bottom: 15px;
-            font-weight: 800;
+            font-weight: 700;
         }
 
-        .grid-container { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 25px 0; }
+        .grid-container { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 25px 0; }
         
         .num-btn { 
-            width: 52px; height: 52px; border: 1px solid var(--border); 
-            border-radius: 10px; background: #1a1a1a; color: #fff;
-            font-weight: 700; cursor: pointer; transition: 0.2s;
+            width: 54px; height: 54px; 
+            border: 1px solid var(--border); 
+            border-radius: 14px; 
+            background: #ffffff; 
+            color: var(--text-main);
+            font-weight: 700; 
+            cursor: pointer; 
+            transition: all 0.2s;
+            font-size: 1.1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
         }
-        .num-btn.active { background: var(--primary); color: #000; border-color: var(--primary); }
-        .num-btn.fixed { background: #ffffff; color: #000; border-color: #fff; }
+        .num-btn:hover { border-color: var(--primary); background: #fffbeb; }
+        .num-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); transform: scale(1.05); }
+        .num-btn.fixed { background: var(--text-main); color: #fff; border-color: var(--text-main); }
 
         select, input { 
-            width: 100%; padding: 16px; border-radius: 10px; 
-            background: #000; border: 1px solid var(--border); 
-            color: #fff; font-size: 0.95rem; margin-bottom: 12px;
+            width: 100%; padding: 18px; border-radius: 12px; 
+            background: #f1f5f9; 
+            border: 2px solid transparent; 
+            color: var(--text-main); 
+            font-size: 1rem; 
+            margin-bottom: 15px;
             box-sizing: border-box;
+            transition: all 0.2s;
+            font-family: inherit;
         }
+        select:focus, input:focus { outline: none; border-color: var(--primary); background: #ffffff; }
 
         .main-btn { 
-            background: var(--primary); color: #000; border: none; 
-            padding: 18px; border-radius: 10px; font-weight: 800; width: 100%;
-            cursor: pointer; text-transform: uppercase;
+            background: linear-gradient(to right, #f59e0b, #fbbf24); 
+            color: #ffffff; 
+            border: none; 
+            padding: 20px; 
+            border-radius: 14px; 
+            font-weight: 800; 
+            width: 100%;
+            cursor: pointer; 
+            text-transform: uppercase;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+            transition: all 0.3s;
         }
-        .main-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .main-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4); }
+        .main-btn:disabled { opacity: 0.4; cursor: not-allowed; background: #cbd5e1; box-shadow: none; }
 
         .ticket { 
-            background: #1a1a1a; border: 1px solid var(--border); 
-            padding: 15px; border-radius: 10px; font-family: 'JetBrains Mono', monospace;
-            text-align: center; color: var(--primary);
+            background: #ffffff; 
+            border: 1px solid var(--border); 
+            padding: 18px; 
+            border-radius: 14px; 
+            font-family: 'JetBrains Mono', monospace;
+            text-align: center; 
+            color: var(--text-main);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            transition: all 0.3s;
         }
-        .ticket.ganhador { background: var(--success) !important; color: #fff !important; box-shadow: 0 0 25px rgba(34, 197, 94, 0.5); }
+        .ticket.ganhador { 
+            background: var(--success) !important; 
+            color: #fff !important; 
+            border-color: var(--success);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3); 
+            transform: scale(1.05);
+        }
 
-        .btn-clear { background: transparent; color: var(--danger); border: 1px solid var(--danger); margin-top: 15px; }
-        .btn-whatsapp { background: #25D366; color: #fff; border: none; margin-top: 10px; }
+        .btn-clear { background: #fff1f2; color: var(--danger); border: 1px solid #fecdd3; margin-top: 15px; }
+        .btn-clear:hover { background: var(--danger); color: #fff; }
+        
+        .btn-whatsapp { background: #22c55e; color: #fff; border: none; margin-top: 10px; }
+        .btn-whatsapp:hover { background: #16a34a; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3); }
+
+        #puxada-resultado {
+            background: #fffbeb;
+            padding: 10px;
+            border-radius: 8px;
+            color: var(--primary-dark) !important;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
 
     </style>
 </head>
@@ -195,7 +305,7 @@
 
 <div class="main-card">
     <div class="header">
-        <h1>SISTEMA DE FECHAMENTOS</h1>
+        <h1>GUINHO FECHAMENTOS</h1>
         <div class="online-counter">
             <span class="dot"></span> <span id="user-count">...</span> analistas ativos
         </div>
@@ -206,21 +316,21 @@
             <h4>💎 ENTRAR NO GRUPO VIP EXCLUSIVO</h4>
         </a>
 
-        <div class="action-links" style="margin-bottom: 30px;">
+        <div class="action-links" style="margin-bottom: 30px; display: flex; flex-direction: column; gap: 5px;">
             <a href="https://bichostars.net/register?ind=8736" target="_blank" class="btn-link btn-banca">ACESSAR PLATAFORMA OFICIAL</a>
             <a href="https://mpago.la/2Hvokm3" target="_blank" class="btn-link btn-donate">Manter servidor (Doação via Pix)</a>
         </div>
 
         <div class="suggestions-panel">
             <div class="datetime-container" style="text-align: center;">
-                <div id="current-date" style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 5px; text-transform: capitalize;">--/--/----</div>
+                <div id="current-date" style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 5px; text-transform: capitalize; font-weight: 600;">--/--/----</div>
                 <div id="clock" class="clock-display">00:00:00</div>
             </div>
             <div class="section-title" style="text-align: center;">Sugestões Algorítmicas</div>
             <div id="palpites-container"></div>
         </div>
 
-        <div style="background: #1a1a1a; padding: 20px; border-radius: 16px; margin-bottom: 25px; border: 1px solid var(--border);">
+        <div style="background: #f8fafc; padding: 25px; border-radius: 20px; margin-bottom: 25px; border: 1px solid var(--border);">
             <div class="section-title">Análise de Puxada</div>
             <select id="bichoAnterior" onchange="verPuxada()">
                 <option value="">Qual bicho deu por último?</option>
@@ -250,7 +360,7 @@
                 <option value="Veado (24)">Veado (24)</option>
                 <option value="Vaca (25)">Vaca (25)</option>
             </select>
-            <div id="puxada-resultado" style="text-align: center; color: #fff; font-weight: 700; margin-top: 5px;">--</div>
+            <div id="puxada-resultado" style="text-align: center; font-weight: 700; margin-top: 5px;">--</div>
         </div>
 
         <div class="section-title">1. Configurar Modalidade</div>
@@ -271,26 +381,27 @@
         </select>
 
         <div id="grid" class="grid-container"></div>
-        <div id="status-text" style="text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">Selecione os parâmetros acima</div>
+        <div id="status-text" style="text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px; font-weight: 600;">Selecione os parâmetros acima</div>
 
         <button id="generateBtn" class="main-btn" onclick="generate()" disabled>GERAR COMBINAÇÕES</button>
         
         <div id="actionPanel" style="display:none; flex-direction: column; gap: 10px; margin-top: 20px;">
-            <button class="btn-link" style="background: #fff; color: #000;" onclick="copyToClipboard()">COPIAR TODA LISTA</button>
+            <button class="btn-link" style="background: var(--text-main); color: #fff;" onclick="copyToClipboard()">COPIAR TODA LISTA</button>
             <button class="btn-link btn-whatsapp" onclick="shareWhatsapp()">ENVIAR PARA CAMBISTA</button>
         </div>
 
-        <div style="margin-top: 40px; border-top: 2px solid var(--border); padding-top: 30px;">
+        <div style="margin-top: 50px; border-top: 2px solid var(--bg-body); padding-top: 35px;">
             <div class="section-title">Conferidor Digital</div>
             <input type="text" id="drawResult" placeholder="Insira o resultado (ex: 12, 45, 09)" oninput="checkGames()">
             <button class="btn-link btn-clear" onclick="clearAll()">LIMPAR TUDO / REINICIAR</button>
         </div>
 
-        <div id="results-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; margin-top: 25px;"></div>
+        <div id="results-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; margin-top: 30px;"></div>
     </div>
 </div>
 
 <script>
+    /* LÓGICA MANTIDA INTEGRALMENTE CONFORME SOLICITADO */
     let selectedNumbers = [];
     let fixedNumber = null;
     let currentGames = [];
@@ -331,19 +442,17 @@
             const gNum = parseInt(bicho.n);
             const dezenasBase = [(gNum*4).toString().padStart(2,'0').replace('100','00'), (gNum*4-1).toString().padStart(2,'0'), (gNum*4-2).toString().padStart(2,'0'), (gNum*4-3).toString().padStart(2,'0')];
             
-            // HTML CENTRALIZADO COM ANIMAÇÃO
-            let milharesHTML = dezenasBase.map(dez => `<span style="display:block; font-size:0.9rem; color:#fff; font-family: 'JetBrains Mono', monospace;">${Math.floor(getNext()*100).toString().padStart(2,'0')}${dez}</span>`).join('');
+            let milharesHTML = dezenasBase.map(dez => `<span style="display:block; font-size:0.85rem; color:var(--text-main); font-family: 'JetBrains Mono', monospace; opacity: 0.8;">${Math.floor(getNext()*100).toString().padStart(2,'0')}${dez}</span>`).join('');
             
             container.innerHTML += `
                 <div class="group-card">
                     <span class="bicho-animado">${bicho.icon}</span>
-                    <div style="font-weight:800; color:var(--primary); margin:5px 0; font-size:1.2rem">${bicho.n}</div>
+                    <div style="font-weight:800; color:var(--primary-dark); margin:5px 0; font-size:1.1rem">${bicho.n}</div>
                     <div style="margin-top:5px">${milharesHTML}</div>
                 </div>`;
         });
     }
 
-    /* MANTENDO TODAS AS FUNÇÕES ORIGINAIS INTACTAS */
     function renderGrid() {
         const grid = document.getElementById('grid');
         grid.innerHTML = '';
@@ -444,7 +553,7 @@
 
     function copyToClipboard() {
         let text = `GUINHO FECHAMENTOS\n\n` + currentGames.map((g, i) => `Jogo ${i+1}: ${g.join('-')}`).join('\n');
-        navigator.clipboard.writeText(text).then(() => alert("Copiado!"));
+        navigator.clipboard.writeText(text).then(() => alert("Copiado com sucesso!"));
     }
 
     function shareWhatsapp() {
